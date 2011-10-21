@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +9,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashSet;
@@ -20,6 +23,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import org.jombie.common.Vector;
 
 public class MapView extends JFrame {
 	protected static final int NUM_BUFFERS = 100;
@@ -44,7 +49,7 @@ public class MapView extends JFrame {
 }
 
 class PanelTest extends JPanel implements KeyListener, FocusListener,
-		MouseMotionListener {
+		MouseMotionListener, ImageObserver, MouseListener {
 	private static final int POKEZERO = -65794;
 	private static final int _sizeX = 400;
 	private static final int _sizeY = 400;
@@ -58,23 +63,36 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static final int SPEED = 10;
 	private static int personX = _sizeX/2, personY = _sizeY/2;
 	private Color map = Color.WHITE;
+	private Vector mousePoint = new Vector();
 
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
-	BufferedImage plane;
+
 	BufferedImage actual;
+	private String explosion = "Explode.gif";
+	BufferedImage plane, expl;
+	boolean explode = false;
+
 	double weaponAngle = 0;
 
 	byte direction = 0; // 0 -down, 1-right, 2-up, 3-left
 	private Set<Integer> pressedKeys;
 
+	public boolean imageUpdate(Image img, int flags, int x, int y, int w, int h) {
+
+		repaint();
+		return true;
+	}
+
 	PanelTest() {
 		setBackground(Color.BLACK);
 		pressedKeys = new LinkedHashSet<>();
 		ImageIcon ii = null;
+		
 		try {
 			ii = new ImageIcon(ImageIO.read(new File(craft1)));
 			actual = ImageIO.read(new File(craft1));
+			expl = ImageIO.read(new File(explosion));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,10 +101,15 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		
 		setDoubleBuffered(true);
 		setFocusable(true);
-		Timer s = new Timer(1, new ActionListener() {
+		Timer s = new Timer(10, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				Vector me = new Vector();
+				me.setxCoord(personX);
+				me.setyCoord(personY);
+				weaponAngle = me.findAngle(mousePoint);
+//				System.out.println(weaponAngle);
 				repaint();
 			}
 		});
@@ -227,11 +250,13 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.drawImage(plane, 0, 0, _sizeX, _sizeY, x, y, x + _sizeX, y + _sizeY,
 				this);
 		g.setColor(Color.GREEN);
-		g.fillOval(personX-_meRadius/2, personY-_meRadius/2, _meRadius, _meRadius);
+		g.fillOval(personX - _meRadius / 2, personY - _meRadius / 2, _meRadius,
+				_meRadius);
 		int x = (int) (_gunRadius * Math.cos(weaponAngle));
 		int y = (int) (_gunRadius * Math.sin(weaponAngle));
 		g.setColor(Color.RED);
-		g.fillOval(personX + x-_gunSize/2, personY - y-_gunSize/2, _gunSize, _gunSize);
+		g.fillOval(personX + x - _gunSize / 2, personY - y - _gunSize / 2,
+				_gunSize, _gunSize);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -259,15 +284,38 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public void mouseMoved(MouseEvent mouseHitPoint) {
 		int xHit = mouseHitPoint.getX();
 		int yHit = mouseHitPoint.getY();
-		xHit = xHit - personX;
-		yHit = personY - yHit;
-		if (xHit == 0) {
-			weaponAngle = Math.PI / 2 * (yHit > 0 ? 1 : -1);
-		} else {
-			weaponAngle = Math.atan((double)yHit / xHit);
-			if(xHit<0){
-				weaponAngle+=Math.PI;
-			}
-		}
+
+		mousePoint.setxCoord(xHit);
+		mousePoint.setyCoord(yHit);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
