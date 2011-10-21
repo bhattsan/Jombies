@@ -11,12 +11,16 @@ import javax.swing.JOptionPane;
 
 import org.jombie.common.Vector;
 import org.jombie.server.Messages.ClientMessage;
+import org.jombie.server.Messages.ServerMessage;
 import org.jombie.server.Messages.ClientMessage.Death;
 import org.jombie.server.Messages.ClientMessage.Location;
 import org.jombie.server.Messages.ClientMessage.Shoot;
+import org.jombie.server.Messages.ServerMessage;
 import org.jombie.server.Protocol;
 
-public class JombieClient {
+import com.google.protobuf.InvalidProtocolBufferException;
+
+public class JombieClient implements Runnable{
 	private BufferedReader fromServer;
 	private PrintWriter toServer;
 	public JombieClient(String server) throws UnknownHostException, IOException {
@@ -34,6 +38,8 @@ public class JombieClient {
 		toServer.println(userName);
 		System.out.println(fromServer.readLine());
 		System.out.println(fromServer.readLine());
+		Thread t = new Thread(this);
+		t.start();
 	}
 	public void sendCoords(Vector pos, Vector direction, boolean isMoving){
 		ClientMessage.Builder builder = ClientMessage.newBuilder();
@@ -72,5 +78,33 @@ public class JombieClient {
 		derp.setxCoord(1);
 		derp.setyCoord(2);
 		client.sendCoords(derp, derp, true);
+	}
+	@Override
+	public void run() {
+		String reply = "";
+		try {
+			reply = fromServer.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int length = Integer.parseInt(reply.substring(0, reply.indexOf(':')));
+		String message = reply.substring(reply.indexOf(':')+1); 
+		ServerMessage serverMess=null;
+		try {
+			serverMess = ServerMessage.parseFrom(reply.getBytes());
+		} catch (InvalidProtocolBufferException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(serverMess.hasInfo()){
+			
+		} else if(serverMess.hasDeath()){
+			
+		} else if(serverMess.hasProj()){
+			
+		} else if(serverMess.hasNew()){
+			
+		}
 	}
 }

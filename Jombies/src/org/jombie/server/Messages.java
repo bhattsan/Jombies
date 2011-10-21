@@ -2222,37 +2222,22 @@ public final class Messages {
   public interface ServerMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // repeated .org.jombie.server.ServerMessage.newComer new = 1;
-    java.util.List<org.jombie.server.Messages.ServerMessage.newComer> 
-        getNewList();
-    org.jombie.server.Messages.ServerMessage.newComer getNew(int index);
-    int getNewCount();
-    java.util.List<? extends org.jombie.server.Messages.ServerMessage.newComerOrBuilder> 
-        getNewOrBuilderList();
-    org.jombie.server.Messages.ServerMessage.newComerOrBuilder getNewOrBuilder(
-        int index);
+    // optional .org.jombie.server.ServerMessage.newComer new = 1;
+    boolean hasNew();
+    org.jombie.server.Messages.ServerMessage.newComer getNew();
+    org.jombie.server.Messages.ServerMessage.newComerOrBuilder getNewOrBuilder();
     
     // optional .org.jombie.server.ServerMessage.Projectile proj = 2;
     boolean hasProj();
     org.jombie.server.Messages.ServerMessage.Projectile getProj();
     org.jombie.server.Messages.ServerMessage.ProjectileOrBuilder getProjOrBuilder();
     
-    // repeated .org.jombie.server.ServerMessage.Score score = 3;
-    java.util.List<org.jombie.server.Messages.ServerMessage.Score> 
-        getScoreList();
-    org.jombie.server.Messages.ServerMessage.Score getScore(int index);
-    int getScoreCount();
-    java.util.List<? extends org.jombie.server.Messages.ServerMessage.ScoreOrBuilder> 
-        getScoreOrBuilderList();
-    org.jombie.server.Messages.ServerMessage.ScoreOrBuilder getScoreOrBuilder(
-        int index);
-    
-    // optional .org.jombie.server.ServerMessage.DeathNews death = 4;
+    // optional .org.jombie.server.ServerMessage.DeathNews death = 3;
     boolean hasDeath();
     org.jombie.server.Messages.ServerMessage.DeathNews getDeath();
     org.jombie.server.Messages.ServerMessage.DeathNewsOrBuilder getDeathOrBuilder();
     
-    // optional .org.jombie.server.ServerMessage.Info info = 5;
+    // optional .org.jombie.server.ServerMessage.Info info = 4;
     boolean hasInfo();
     org.jombie.server.Messages.ServerMessage.Info getInfo();
     org.jombie.server.Messages.ServerMessage.InfoOrBuilder getInfoOrBuilder();
@@ -3553,519 +3538,6 @@ public final class Messages {
       // @@protoc_insertion_point(class_scope:org.jombie.server.ServerMessage.DeathNews)
     }
     
-    public interface ScoreOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // required string user = 1;
-      boolean hasUser();
-      String getUser();
-      
-      // required int32 kills = 2;
-      boolean hasKills();
-      int getKills();
-      
-      // required int32 deaths = 3;
-      boolean hasDeaths();
-      int getDeaths();
-    }
-    public static final class Score extends
-        com.google.protobuf.GeneratedMessage
-        implements ScoreOrBuilder {
-      // Use Score.newBuilder() to construct.
-      private Score(Builder builder) {
-        super(builder);
-      }
-      private Score(boolean noInit) {}
-      
-      private static final Score defaultInstance;
-      public static Score getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public Score getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.jombie.server.Messages.internal_static_org_jombie_server_ServerMessage_Score_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.jombie.server.Messages.internal_static_org_jombie_server_ServerMessage_Score_fieldAccessorTable;
-      }
-      
-      private int bitField0_;
-      // required string user = 1;
-      public static final int USER_FIELD_NUMBER = 1;
-      private java.lang.Object user_;
-      public boolean hasUser() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public String getUser() {
-        java.lang.Object ref = user_;
-        if (ref instanceof String) {
-          return (String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-            user_ = s;
-          }
-          return s;
-        }
-      }
-      private com.google.protobuf.ByteString getUserBytes() {
-        java.lang.Object ref = user_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-          user_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      
-      // required int32 kills = 2;
-      public static final int KILLS_FIELD_NUMBER = 2;
-      private int kills_;
-      public boolean hasKills() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getKills() {
-        return kills_;
-      }
-      
-      // required int32 deaths = 3;
-      public static final int DEATHS_FIELD_NUMBER = 3;
-      private int deaths_;
-      public boolean hasDeaths() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public int getDeaths() {
-        return deaths_;
-      }
-      
-      private void initFields() {
-        user_ = "";
-        kills_ = 0;
-        deaths_ = 0;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasUser()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasKills()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasDeaths()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeBytes(1, getUserBytes());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(2, kills_);
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(3, deaths_);
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(1, getUserBytes());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(2, kills_);
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, deaths_);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static org.jombie.server.Messages.ServerMessage.Score parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(org.jombie.server.Messages.ServerMessage.Score prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements org.jombie.server.Messages.ServerMessage.ScoreOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return org.jombie.server.Messages.internal_static_org_jombie_server_ServerMessage_Score_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return org.jombie.server.Messages.internal_static_org_jombie_server_ServerMessage_Score_fieldAccessorTable;
-        }
-        
-        // Construct using org.jombie.server.Messages.ServerMessage.Score.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          user_ = "";
-          bitField0_ = (bitField0_ & ~0x00000001);
-          kills_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          deaths_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return org.jombie.server.Messages.ServerMessage.Score.getDescriptor();
-        }
-        
-        public org.jombie.server.Messages.ServerMessage.Score getDefaultInstanceForType() {
-          return org.jombie.server.Messages.ServerMessage.Score.getDefaultInstance();
-        }
-        
-        public org.jombie.server.Messages.ServerMessage.Score build() {
-          org.jombie.server.Messages.ServerMessage.Score result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private org.jombie.server.Messages.ServerMessage.Score buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          org.jombie.server.Messages.ServerMessage.Score result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public org.jombie.server.Messages.ServerMessage.Score buildPartial() {
-          org.jombie.server.Messages.ServerMessage.Score result = new org.jombie.server.Messages.ServerMessage.Score(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.user_ = user_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.kills_ = kills_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.deaths_ = deaths_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof org.jombie.server.Messages.ServerMessage.Score) {
-            return mergeFrom((org.jombie.server.Messages.ServerMessage.Score)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(org.jombie.server.Messages.ServerMessage.Score other) {
-          if (other == org.jombie.server.Messages.ServerMessage.Score.getDefaultInstance()) return this;
-          if (other.hasUser()) {
-            setUser(other.getUser());
-          }
-          if (other.hasKills()) {
-            setKills(other.getKills());
-          }
-          if (other.hasDeaths()) {
-            setDeaths(other.getDeaths());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasUser()) {
-            
-            return false;
-          }
-          if (!hasKills()) {
-            
-            return false;
-          }
-          if (!hasDeaths()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 10: {
-                bitField0_ |= 0x00000001;
-                user_ = input.readBytes();
-                break;
-              }
-              case 16: {
-                bitField0_ |= 0x00000002;
-                kills_ = input.readInt32();
-                break;
-              }
-              case 24: {
-                bitField0_ |= 0x00000004;
-                deaths_ = input.readInt32();
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // required string user = 1;
-        private java.lang.Object user_ = "";
-        public boolean hasUser() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public String getUser() {
-          java.lang.Object ref = user_;
-          if (!(ref instanceof String)) {
-            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-            user_ = s;
-            return s;
-          } else {
-            return (String) ref;
-          }
-        }
-        public Builder setUser(String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-          user_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearUser() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          user_ = getDefaultInstance().getUser();
-          onChanged();
-          return this;
-        }
-        void setUser(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000001;
-          user_ = value;
-          onChanged();
-        }
-        
-        // required int32 kills = 2;
-        private int kills_ ;
-        public boolean hasKills() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        public int getKills() {
-          return kills_;
-        }
-        public Builder setKills(int value) {
-          bitField0_ |= 0x00000002;
-          kills_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearKills() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          kills_ = 0;
-          onChanged();
-          return this;
-        }
-        
-        // required int32 deaths = 3;
-        private int deaths_ ;
-        public boolean hasDeaths() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
-        }
-        public int getDeaths() {
-          return deaths_;
-        }
-        public Builder setDeaths(int value) {
-          bitField0_ |= 0x00000004;
-          deaths_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearDeaths() {
-          bitField0_ = (bitField0_ & ~0x00000004);
-          deaths_ = 0;
-          onChanged();
-          return this;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:org.jombie.server.ServerMessage.Score)
-      }
-      
-      static {
-        defaultInstance = new Score(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:org.jombie.server.ServerMessage.Score)
-    }
-    
     public interface ProjectileOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
@@ -4076,6 +3548,22 @@ public final class Messages {
       // required string owner = 2;
       boolean hasOwner();
       String getOwner();
+      
+      // required int32 X = 3;
+      boolean hasX();
+      int getX();
+      
+      // required int32 Y = 4;
+      boolean hasY();
+      int getY();
+      
+      // required int32 dirX = 5;
+      boolean hasDirX();
+      int getDirX();
+      
+      // required int32 dirY = 6;
+      boolean hasDirY();
+      int getDirY();
     }
     public static final class Projectile extends
         com.google.protobuf.GeneratedMessage
@@ -4214,9 +3702,53 @@ public final class Messages {
         }
       }
       
+      // required int32 X = 3;
+      public static final int X_FIELD_NUMBER = 3;
+      private int x_;
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public int getX() {
+        return x_;
+      }
+      
+      // required int32 Y = 4;
+      public static final int Y_FIELD_NUMBER = 4;
+      private int y_;
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getY() {
+        return y_;
+      }
+      
+      // required int32 dirX = 5;
+      public static final int DIRX_FIELD_NUMBER = 5;
+      private int dirX_;
+      public boolean hasDirX() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getDirX() {
+        return dirX_;
+      }
+      
+      // required int32 dirY = 6;
+      public static final int DIRY_FIELD_NUMBER = 6;
+      private int dirY_;
+      public boolean hasDirY() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getDirY() {
+        return dirY_;
+      }
+      
       private void initFields() {
         type_ = org.jombie.server.Messages.ServerMessage.Projectile.Type.PistolBullet;
         owner_ = "";
+        x_ = 0;
+        y_ = 0;
+        dirX_ = 0;
+        dirY_ = 0;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -4228,6 +3760,22 @@ public final class Messages {
           return false;
         }
         if (!hasOwner()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDirX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDirY()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -4243,6 +3791,18 @@ public final class Messages {
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           output.writeBytes(2, getOwnerBytes());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeInt32(3, x_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeInt32(4, y_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeInt32(5, dirX_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          output.writeInt32(6, dirY_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -4260,6 +3820,22 @@ public final class Messages {
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
             .computeBytesSize(2, getOwnerBytes());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(3, x_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(4, y_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(5, dirX_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(6, dirY_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -4389,6 +3965,14 @@ public final class Messages {
           bitField0_ = (bitField0_ & ~0x00000001);
           owner_ = "";
           bitField0_ = (bitField0_ & ~0x00000002);
+          x_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          y_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          dirX_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          dirY_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
         
@@ -4435,6 +4019,22 @@ public final class Messages {
             to_bitField0_ |= 0x00000002;
           }
           result.owner_ = owner_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.x_ = x_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.y_ = y_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.dirX_ = dirX_;
+          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+            to_bitField0_ |= 0x00000020;
+          }
+          result.dirY_ = dirY_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -4457,6 +4057,18 @@ public final class Messages {
           if (other.hasOwner()) {
             setOwner(other.getOwner());
           }
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
+          }
+          if (other.hasDirX()) {
+            setDirX(other.getDirX());
+          }
+          if (other.hasDirY()) {
+            setDirY(other.getDirY());
+          }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
@@ -4467,6 +4079,22 @@ public final class Messages {
             return false;
           }
           if (!hasOwner()) {
+            
+            return false;
+          }
+          if (!hasX()) {
+            
+            return false;
+          }
+          if (!hasY()) {
+            
+            return false;
+          }
+          if (!hasDirX()) {
+            
+            return false;
+          }
+          if (!hasDirY()) {
             
             return false;
           }
@@ -4510,6 +4138,26 @@ public final class Messages {
               case 18: {
                 bitField0_ |= 0x00000002;
                 owner_ = input.readBytes();
+                break;
+              }
+              case 24: {
+                bitField0_ |= 0x00000004;
+                x_ = input.readInt32();
+                break;
+              }
+              case 32: {
+                bitField0_ |= 0x00000008;
+                y_ = input.readInt32();
+                break;
+              }
+              case 40: {
+                bitField0_ |= 0x00000010;
+                dirX_ = input.readInt32();
+                break;
+              }
+              case 48: {
+                bitField0_ |= 0x00000020;
+                dirY_ = input.readInt32();
                 break;
               }
             }
@@ -4578,6 +4226,90 @@ public final class Messages {
           onChanged();
         }
         
+        // required int32 X = 3;
+        private int x_ ;
+        public boolean hasX() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        public int getX() {
+          return x_;
+        }
+        public Builder setX(int value) {
+          bitField0_ |= 0x00000004;
+          x_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearX() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          x_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 Y = 4;
+        private int y_ ;
+        public boolean hasY() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        public int getY() {
+          return y_;
+        }
+        public Builder setY(int value) {
+          bitField0_ |= 0x00000008;
+          y_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearY() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          y_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 dirX = 5;
+        private int dirX_ ;
+        public boolean hasDirX() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        public int getDirX() {
+          return dirX_;
+        }
+        public Builder setDirX(int value) {
+          bitField0_ |= 0x00000010;
+          dirX_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDirX() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          dirX_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 dirY = 6;
+        private int dirY_ ;
+        public boolean hasDirY() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        public int getDirY() {
+          return dirY_;
+        }
+        public Builder setDirY(int value) {
+          bitField0_ |= 0x00000020;
+          dirY_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDirY() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          dirY_ = 0;
+          onChanged();
+          return this;
+        }
+        
         // @@protoc_insertion_point(builder_scope:org.jombie.server.ServerMessage.Projectile)
       }
       
@@ -4603,6 +4335,22 @@ public final class Messages {
       // required .org.jombie.server.ServerMessage.UnitType type = 3;
       boolean hasType();
       org.jombie.server.Messages.ServerMessage.UnitType getType();
+      
+      // required int32 x = 4;
+      boolean hasX();
+      int getX();
+      
+      // required int32 y = 5;
+      boolean hasY();
+      int getY();
+      
+      // required int32 dirX = 7;
+      boolean hasDirX();
+      int getDirX();
+      
+      // required int32 dirY = 8;
+      boolean hasDirY();
+      int getDirY();
     }
     public static final class newComer extends
         com.google.protobuf.GeneratedMessage
@@ -4754,10 +4502,54 @@ public final class Messages {
         return type_;
       }
       
+      // required int32 x = 4;
+      public static final int X_FIELD_NUMBER = 4;
+      private int x_;
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public int getX() {
+        return x_;
+      }
+      
+      // required int32 y = 5;
+      public static final int Y_FIELD_NUMBER = 5;
+      private int y_;
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public int getY() {
+        return y_;
+      }
+      
+      // required int32 dirX = 7;
+      public static final int DIRX_FIELD_NUMBER = 7;
+      private int dirX_;
+      public boolean hasDirX() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public int getDirX() {
+        return dirX_;
+      }
+      
+      // required int32 dirY = 8;
+      public static final int DIRY_FIELD_NUMBER = 8;
+      private int dirY_;
+      public boolean hasDirY() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      public int getDirY() {
+        return dirY_;
+      }
+      
       private void initFields() {
         team_ = org.jombie.server.Messages.ServerMessage.newComer.Team.A;
         name_ = "";
         type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
+        x_ = 0;
+        y_ = 0;
+        dirX_ = 0;
+        dirY_ = 0;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -4776,6 +4568,22 @@ public final class Messages {
           memoizedIsInitialized = 0;
           return false;
         }
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDirX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDirY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -4791,6 +4599,18 @@ public final class Messages {
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           output.writeEnum(3, type_.getNumber());
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeInt32(4, x_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeInt32(5, y_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          output.writeInt32(7, dirX_);
+        }
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          output.writeInt32(8, dirY_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -4812,6 +4632,22 @@ public final class Messages {
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
             .computeEnumSize(3, type_.getNumber());
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(4, x_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(5, y_);
+        }
+        if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(7, dirX_);
+        }
+        if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(8, dirY_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -4943,6 +4779,14 @@ public final class Messages {
           bitField0_ = (bitField0_ & ~0x00000002);
           type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
           bitField0_ = (bitField0_ & ~0x00000004);
+          x_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          y_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          dirX_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000020);
+          dirY_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000040);
           return this;
         }
         
@@ -4993,6 +4837,22 @@ public final class Messages {
             to_bitField0_ |= 0x00000004;
           }
           result.type_ = type_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.x_ = x_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.y_ = y_;
+          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+            to_bitField0_ |= 0x00000020;
+          }
+          result.dirX_ = dirX_;
+          if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+            to_bitField0_ |= 0x00000040;
+          }
+          result.dirY_ = dirY_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -5018,6 +4878,18 @@ public final class Messages {
           if (other.hasType()) {
             setType(other.getType());
           }
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
+          }
+          if (other.hasDirX()) {
+            setDirX(other.getDirX());
+          }
+          if (other.hasDirY()) {
+            setDirY(other.getDirY());
+          }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
@@ -5032,6 +4904,22 @@ public final class Messages {
             return false;
           }
           if (!hasType()) {
+            
+            return false;
+          }
+          if (!hasX()) {
+            
+            return false;
+          }
+          if (!hasY()) {
+            
+            return false;
+          }
+          if (!hasDirX()) {
+            
+            return false;
+          }
+          if (!hasDirY()) {
             
             return false;
           }
@@ -5086,6 +4974,26 @@ public final class Messages {
                   bitField0_ |= 0x00000004;
                   type_ = value;
                 }
+                break;
+              }
+              case 32: {
+                bitField0_ |= 0x00000008;
+                x_ = input.readInt32();
+                break;
+              }
+              case 40: {
+                bitField0_ |= 0x00000010;
+                y_ = input.readInt32();
+                break;
+              }
+              case 56: {
+                bitField0_ |= 0x00000020;
+                dirX_ = input.readInt32();
+                break;
+              }
+              case 64: {
+                bitField0_ |= 0x00000040;
+                dirY_ = input.readInt32();
                 break;
               }
             }
@@ -5178,6 +5086,90 @@ public final class Messages {
           return this;
         }
         
+        // required int32 x = 4;
+        private int x_ ;
+        public boolean hasX() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        public int getX() {
+          return x_;
+        }
+        public Builder setX(int value) {
+          bitField0_ |= 0x00000008;
+          x_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearX() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          x_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 y = 5;
+        private int y_ ;
+        public boolean hasY() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        public int getY() {
+          return y_;
+        }
+        public Builder setY(int value) {
+          bitField0_ |= 0x00000010;
+          y_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearY() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          y_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 dirX = 7;
+        private int dirX_ ;
+        public boolean hasDirX() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        public int getDirX() {
+          return dirX_;
+        }
+        public Builder setDirX(int value) {
+          bitField0_ |= 0x00000020;
+          dirX_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDirX() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          dirX_ = 0;
+          onChanged();
+          return this;
+        }
+        
+        // required int32 dirY = 8;
+        private int dirY_ ;
+        public boolean hasDirY() {
+          return ((bitField0_ & 0x00000040) == 0x00000040);
+        }
+        public int getDirY() {
+          return dirY_;
+        }
+        public Builder setDirY(int value) {
+          bitField0_ |= 0x00000040;
+          dirY_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearDirY() {
+          bitField0_ = (bitField0_ & ~0x00000040);
+          dirY_ = 0;
+          onChanged();
+          return this;
+        }
+        
         // @@protoc_insertion_point(builder_scope:org.jombie.server.ServerMessage.newComer)
       }
       
@@ -5190,32 +5182,24 @@ public final class Messages {
     }
     
     private int bitField0_;
-    // repeated .org.jombie.server.ServerMessage.newComer new = 1;
+    // optional .org.jombie.server.ServerMessage.newComer new = 1;
     public static final int NEW_FIELD_NUMBER = 1;
-    private java.util.List<org.jombie.server.Messages.ServerMessage.newComer> new_;
-    public java.util.List<org.jombie.server.Messages.ServerMessage.newComer> getNewList() {
+    private org.jombie.server.Messages.ServerMessage.newComer new_;
+    public boolean hasNew() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    public org.jombie.server.Messages.ServerMessage.newComer getNew() {
       return new_;
     }
-    public java.util.List<? extends org.jombie.server.Messages.ServerMessage.newComerOrBuilder> 
-        getNewOrBuilderList() {
+    public org.jombie.server.Messages.ServerMessage.newComerOrBuilder getNewOrBuilder() {
       return new_;
-    }
-    public int getNewCount() {
-      return new_.size();
-    }
-    public org.jombie.server.Messages.ServerMessage.newComer getNew(int index) {
-      return new_.get(index);
-    }
-    public org.jombie.server.Messages.ServerMessage.newComerOrBuilder getNewOrBuilder(
-        int index) {
-      return new_.get(index);
     }
     
     // optional .org.jombie.server.ServerMessage.Projectile proj = 2;
     public static final int PROJ_FIELD_NUMBER = 2;
     private org.jombie.server.Messages.ServerMessage.Projectile proj_;
     public boolean hasProj() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     public org.jombie.server.Messages.ServerMessage.Projectile getProj() {
       return proj_;
@@ -5224,32 +5208,11 @@ public final class Messages {
       return proj_;
     }
     
-    // repeated .org.jombie.server.ServerMessage.Score score = 3;
-    public static final int SCORE_FIELD_NUMBER = 3;
-    private java.util.List<org.jombie.server.Messages.ServerMessage.Score> score_;
-    public java.util.List<org.jombie.server.Messages.ServerMessage.Score> getScoreList() {
-      return score_;
-    }
-    public java.util.List<? extends org.jombie.server.Messages.ServerMessage.ScoreOrBuilder> 
-        getScoreOrBuilderList() {
-      return score_;
-    }
-    public int getScoreCount() {
-      return score_.size();
-    }
-    public org.jombie.server.Messages.ServerMessage.Score getScore(int index) {
-      return score_.get(index);
-    }
-    public org.jombie.server.Messages.ServerMessage.ScoreOrBuilder getScoreOrBuilder(
-        int index) {
-      return score_.get(index);
-    }
-    
-    // optional .org.jombie.server.ServerMessage.DeathNews death = 4;
-    public static final int DEATH_FIELD_NUMBER = 4;
+    // optional .org.jombie.server.ServerMessage.DeathNews death = 3;
+    public static final int DEATH_FIELD_NUMBER = 3;
     private org.jombie.server.Messages.ServerMessage.DeathNews death_;
     public boolean hasDeath() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     public org.jombie.server.Messages.ServerMessage.DeathNews getDeath() {
       return death_;
@@ -5258,11 +5221,11 @@ public final class Messages {
       return death_;
     }
     
-    // optional .org.jombie.server.ServerMessage.Info info = 5;
-    public static final int INFO_FIELD_NUMBER = 5;
+    // optional .org.jombie.server.ServerMessage.Info info = 4;
+    public static final int INFO_FIELD_NUMBER = 4;
     private org.jombie.server.Messages.ServerMessage.Info info_;
     public boolean hasInfo() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     public org.jombie.server.Messages.ServerMessage.Info getInfo() {
       return info_;
@@ -5272,9 +5235,8 @@ public final class Messages {
     }
     
     private void initFields() {
-      new_ = java.util.Collections.emptyList();
+      new_ = org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance();
       proj_ = org.jombie.server.Messages.ServerMessage.Projectile.getDefaultInstance();
-      score_ = java.util.Collections.emptyList();
       death_ = org.jombie.server.Messages.ServerMessage.DeathNews.getDefaultInstance();
       info_ = org.jombie.server.Messages.ServerMessage.Info.getDefaultInstance();
     }
@@ -5283,20 +5245,14 @@ public final class Messages {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      for (int i = 0; i < getNewCount(); i++) {
-        if (!getNew(i).isInitialized()) {
+      if (hasNew()) {
+        if (!getNew().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
       }
       if (hasProj()) {
         if (!getProj().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getScoreCount(); i++) {
-        if (!getScore(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -5320,20 +5276,17 @@ public final class Messages {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < new_.size(); i++) {
-        output.writeMessage(1, new_.get(i));
-      }
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(2, proj_);
-      }
-      for (int i = 0; i < score_.size(); i++) {
-        output.writeMessage(3, score_.get(i));
+        output.writeMessage(1, new_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(4, death_);
+        output.writeMessage(2, proj_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(5, info_);
+        output.writeMessage(3, death_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, info_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -5344,25 +5297,21 @@ public final class Messages {
       if (size != -1) return size;
     
       size = 0;
-      for (int i = 0; i < new_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, new_.get(i));
-      }
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, proj_);
-      }
-      for (int i = 0; i < score_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, score_.get(i));
+          .computeMessageSize(1, new_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, death_);
+          .computeMessageSize(2, proj_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, info_);
+          .computeMessageSize(3, death_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, info_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5482,7 +5431,6 @@ public final class Messages {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getNewFieldBuilder();
           getProjFieldBuilder();
-          getScoreFieldBuilder();
           getDeathFieldBuilder();
           getInfoFieldBuilder();
         }
@@ -5494,35 +5442,29 @@ public final class Messages {
       public Builder clear() {
         super.clear();
         if (newBuilder_ == null) {
-          new_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          new_ = org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance();
         } else {
           newBuilder_.clear();
         }
+        bitField0_ = (bitField0_ & ~0x00000001);
         if (projBuilder_ == null) {
           proj_ = org.jombie.server.Messages.ServerMessage.Projectile.getDefaultInstance();
         } else {
           projBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        if (scoreBuilder_ == null) {
-          score_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-        } else {
-          scoreBuilder_.clear();
-        }
         if (deathBuilder_ == null) {
           death_ = org.jombie.server.Messages.ServerMessage.DeathNews.getDefaultInstance();
         } else {
           deathBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (infoBuilder_ == null) {
           info_ = org.jombie.server.Messages.ServerMessage.Info.getDefaultInstance();
         } else {
           infoBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       
@@ -5561,42 +5503,32 @@ public final class Messages {
         org.jombie.server.Messages.ServerMessage result = new org.jombie.server.Messages.ServerMessage(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
         if (newBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            new_ = java.util.Collections.unmodifiableList(new_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
           result.new_ = new_;
         } else {
           result.new_ = newBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000001;
+          to_bitField0_ |= 0x00000002;
         }
         if (projBuilder_ == null) {
           result.proj_ = proj_;
         } else {
           result.proj_ = projBuilder_.build();
         }
-        if (scoreBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            score_ = java.util.Collections.unmodifiableList(score_);
-            bitField0_ = (bitField0_ & ~0x00000004);
-          }
-          result.score_ = score_;
-        } else {
-          result.score_ = scoreBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000002;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
         }
         if (deathBuilder_ == null) {
           result.death_ = death_;
         } else {
           result.death_ = deathBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000004;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
         if (infoBuilder_ == null) {
           result.info_ = info_;
@@ -5619,60 +5551,11 @@ public final class Messages {
       
       public Builder mergeFrom(org.jombie.server.Messages.ServerMessage other) {
         if (other == org.jombie.server.Messages.ServerMessage.getDefaultInstance()) return this;
-        if (newBuilder_ == null) {
-          if (!other.new_.isEmpty()) {
-            if (new_.isEmpty()) {
-              new_ = other.new_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureNewIsMutable();
-              new_.addAll(other.new_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.new_.isEmpty()) {
-            if (newBuilder_.isEmpty()) {
-              newBuilder_.dispose();
-              newBuilder_ = null;
-              new_ = other.new_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              newBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getNewFieldBuilder() : null;
-            } else {
-              newBuilder_.addAllMessages(other.new_);
-            }
-          }
+        if (other.hasNew()) {
+          mergeNew(other.getNew());
         }
         if (other.hasProj()) {
           mergeProj(other.getProj());
-        }
-        if (scoreBuilder_ == null) {
-          if (!other.score_.isEmpty()) {
-            if (score_.isEmpty()) {
-              score_ = other.score_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-            } else {
-              ensureScoreIsMutable();
-              score_.addAll(other.score_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.score_.isEmpty()) {
-            if (scoreBuilder_.isEmpty()) {
-              scoreBuilder_.dispose();
-              scoreBuilder_ = null;
-              score_ = other.score_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-              scoreBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getScoreFieldBuilder() : null;
-            } else {
-              scoreBuilder_.addAllMessages(other.score_);
-            }
-          }
         }
         if (other.hasDeath()) {
           mergeDeath(other.getDeath());
@@ -5685,20 +5568,14 @@ public final class Messages {
       }
       
       public final boolean isInitialized() {
-        for (int i = 0; i < getNewCount(); i++) {
-          if (!getNew(i).isInitialized()) {
+        if (hasNew()) {
+          if (!getNew().isInitialized()) {
             
             return false;
           }
         }
         if (hasProj()) {
           if (!getProj().isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getScoreCount(); i++) {
-          if (!getScore(i).isInitialized()) {
             
             return false;
           }
@@ -5743,8 +5620,11 @@ public final class Messages {
             }
             case 10: {
               org.jombie.server.Messages.ServerMessage.newComer.Builder subBuilder = org.jombie.server.Messages.ServerMessage.newComer.newBuilder();
+              if (hasNew()) {
+                subBuilder.mergeFrom(getNew());
+              }
               input.readMessage(subBuilder, extensionRegistry);
-              addNew(subBuilder.buildPartial());
+              setNew(subBuilder.buildPartial());
               break;
             }
             case 18: {
@@ -5757,12 +5637,6 @@ public final class Messages {
               break;
             }
             case 26: {
-              org.jombie.server.Messages.ServerMessage.Score.Builder subBuilder = org.jombie.server.Messages.ServerMessage.Score.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addScore(subBuilder.buildPartial());
-              break;
-            }
-            case 34: {
               org.jombie.server.Messages.ServerMessage.DeathNews.Builder subBuilder = org.jombie.server.Messages.ServerMessage.DeathNews.newBuilder();
               if (hasDeath()) {
                 subBuilder.mergeFrom(getDeath());
@@ -5771,7 +5645,7 @@ public final class Messages {
               setDeath(subBuilder.buildPartial());
               break;
             }
-            case 42: {
+            case 34: {
               org.jombie.server.Messages.ServerMessage.Info.Builder subBuilder = org.jombie.server.Messages.ServerMessage.Info.newBuilder();
               if (hasInfo()) {
                 subBuilder.mergeFrom(getInfo());
@@ -5786,185 +5660,89 @@ public final class Messages {
       
       private int bitField0_;
       
-      // repeated .org.jombie.server.ServerMessage.newComer new = 1;
-      private java.util.List<org.jombie.server.Messages.ServerMessage.newComer> new_ =
-        java.util.Collections.emptyList();
-      private void ensureNewIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          new_ = new java.util.ArrayList<org.jombie.server.Messages.ServerMessage.newComer>(new_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-      
-      private com.google.protobuf.RepeatedFieldBuilder<
+      // optional .org.jombie.server.ServerMessage.newComer new = 1;
+      private org.jombie.server.Messages.ServerMessage.newComer new_ = org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
           org.jombie.server.Messages.ServerMessage.newComer, org.jombie.server.Messages.ServerMessage.newComer.Builder, org.jombie.server.Messages.ServerMessage.newComerOrBuilder> newBuilder_;
-      
-      public java.util.List<org.jombie.server.Messages.ServerMessage.newComer> getNewList() {
+      public boolean hasNew() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public org.jombie.server.Messages.ServerMessage.newComer getNew() {
         if (newBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(new_);
+          return new_;
         } else {
-          return newBuilder_.getMessageList();
+          return newBuilder_.getMessage();
         }
       }
-      public int getNewCount() {
-        if (newBuilder_ == null) {
-          return new_.size();
-        } else {
-          return newBuilder_.getCount();
-        }
-      }
-      public org.jombie.server.Messages.ServerMessage.newComer getNew(int index) {
-        if (newBuilder_ == null) {
-          return new_.get(index);
-        } else {
-          return newBuilder_.getMessage(index);
-        }
-      }
-      public Builder setNew(
-          int index, org.jombie.server.Messages.ServerMessage.newComer value) {
+      public Builder setNew(org.jombie.server.Messages.ServerMessage.newComer value) {
         if (newBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureNewIsMutable();
-          new_.set(index, value);
+          new_ = value;
           onChanged();
         } else {
-          newBuilder_.setMessage(index, value);
+          newBuilder_.setMessage(value);
         }
+        bitField0_ |= 0x00000001;
         return this;
       }
       public Builder setNew(
-          int index, org.jombie.server.Messages.ServerMessage.newComer.Builder builderForValue) {
-        if (newBuilder_ == null) {
-          ensureNewIsMutable();
-          new_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          newBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addNew(org.jombie.server.Messages.ServerMessage.newComer value) {
-        if (newBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureNewIsMutable();
-          new_.add(value);
-          onChanged();
-        } else {
-          newBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      public Builder addNew(
-          int index, org.jombie.server.Messages.ServerMessage.newComer value) {
-        if (newBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureNewIsMutable();
-          new_.add(index, value);
-          onChanged();
-        } else {
-          newBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      public Builder addNew(
           org.jombie.server.Messages.ServerMessage.newComer.Builder builderForValue) {
         if (newBuilder_ == null) {
-          ensureNewIsMutable();
-          new_.add(builderForValue.build());
+          new_ = builderForValue.build();
           onChanged();
         } else {
-          newBuilder_.addMessage(builderForValue.build());
+          newBuilder_.setMessage(builderForValue.build());
         }
+        bitField0_ |= 0x00000001;
         return this;
       }
-      public Builder addNew(
-          int index, org.jombie.server.Messages.ServerMessage.newComer.Builder builderForValue) {
+      public Builder mergeNew(org.jombie.server.Messages.ServerMessage.newComer value) {
         if (newBuilder_ == null) {
-          ensureNewIsMutable();
-          new_.add(index, builderForValue.build());
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              new_ != org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance()) {
+            new_ =
+              org.jombie.server.Messages.ServerMessage.newComer.newBuilder(new_).mergeFrom(value).buildPartial();
+          } else {
+            new_ = value;
+          }
           onChanged();
         } else {
-          newBuilder_.addMessage(index, builderForValue.build());
+          newBuilder_.mergeFrom(value);
         }
-        return this;
-      }
-      public Builder addAllNew(
-          java.lang.Iterable<? extends org.jombie.server.Messages.ServerMessage.newComer> values) {
-        if (newBuilder_ == null) {
-          ensureNewIsMutable();
-          super.addAll(values, new_);
-          onChanged();
-        } else {
-          newBuilder_.addAllMessages(values);
-        }
+        bitField0_ |= 0x00000001;
         return this;
       }
       public Builder clearNew() {
         if (newBuilder_ == null) {
-          new_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          new_ = org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance();
           onChanged();
         } else {
           newBuilder_.clear();
         }
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
-      public Builder removeNew(int index) {
-        if (newBuilder_ == null) {
-          ensureNewIsMutable();
-          new_.remove(index);
-          onChanged();
-        } else {
-          newBuilder_.remove(index);
-        }
-        return this;
+      public org.jombie.server.Messages.ServerMessage.newComer.Builder getNewBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getNewFieldBuilder().getBuilder();
       }
-      public org.jombie.server.Messages.ServerMessage.newComer.Builder getNewBuilder(
-          int index) {
-        return getNewFieldBuilder().getBuilder(index);
-      }
-      public org.jombie.server.Messages.ServerMessage.newComerOrBuilder getNewOrBuilder(
-          int index) {
-        if (newBuilder_ == null) {
-          return new_.get(index);  } else {
-          return newBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      public java.util.List<? extends org.jombie.server.Messages.ServerMessage.newComerOrBuilder> 
-           getNewOrBuilderList() {
+      public org.jombie.server.Messages.ServerMessage.newComerOrBuilder getNewOrBuilder() {
         if (newBuilder_ != null) {
-          return newBuilder_.getMessageOrBuilderList();
+          return newBuilder_.getMessageOrBuilder();
         } else {
-          return java.util.Collections.unmodifiableList(new_);
+          return new_;
         }
       }
-      public org.jombie.server.Messages.ServerMessage.newComer.Builder addNewBuilder() {
-        return getNewFieldBuilder().addBuilder(
-            org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance());
-      }
-      public org.jombie.server.Messages.ServerMessage.newComer.Builder addNewBuilder(
-          int index) {
-        return getNewFieldBuilder().addBuilder(
-            index, org.jombie.server.Messages.ServerMessage.newComer.getDefaultInstance());
-      }
-      public java.util.List<org.jombie.server.Messages.ServerMessage.newComer.Builder> 
-           getNewBuilderList() {
-        return getNewFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilder<
           org.jombie.server.Messages.ServerMessage.newComer, org.jombie.server.Messages.ServerMessage.newComer.Builder, org.jombie.server.Messages.ServerMessage.newComerOrBuilder> 
           getNewFieldBuilder() {
         if (newBuilder_ == null) {
-          newBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          newBuilder_ = new com.google.protobuf.SingleFieldBuilder<
               org.jombie.server.Messages.ServerMessage.newComer, org.jombie.server.Messages.ServerMessage.newComer.Builder, org.jombie.server.Messages.ServerMessage.newComerOrBuilder>(
                   new_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
                   isClean());
           new_ = null;
@@ -6062,198 +5840,12 @@ public final class Messages {
         return projBuilder_;
       }
       
-      // repeated .org.jombie.server.ServerMessage.Score score = 3;
-      private java.util.List<org.jombie.server.Messages.ServerMessage.Score> score_ =
-        java.util.Collections.emptyList();
-      private void ensureScoreIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-          score_ = new java.util.ArrayList<org.jombie.server.Messages.ServerMessage.Score>(score_);
-          bitField0_ |= 0x00000004;
-         }
-      }
-      
-      private com.google.protobuf.RepeatedFieldBuilder<
-          org.jombie.server.Messages.ServerMessage.Score, org.jombie.server.Messages.ServerMessage.Score.Builder, org.jombie.server.Messages.ServerMessage.ScoreOrBuilder> scoreBuilder_;
-      
-      public java.util.List<org.jombie.server.Messages.ServerMessage.Score> getScoreList() {
-        if (scoreBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(score_);
-        } else {
-          return scoreBuilder_.getMessageList();
-        }
-      }
-      public int getScoreCount() {
-        if (scoreBuilder_ == null) {
-          return score_.size();
-        } else {
-          return scoreBuilder_.getCount();
-        }
-      }
-      public org.jombie.server.Messages.ServerMessage.Score getScore(int index) {
-        if (scoreBuilder_ == null) {
-          return score_.get(index);
-        } else {
-          return scoreBuilder_.getMessage(index);
-        }
-      }
-      public Builder setScore(
-          int index, org.jombie.server.Messages.ServerMessage.Score value) {
-        if (scoreBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureScoreIsMutable();
-          score_.set(index, value);
-          onChanged();
-        } else {
-          scoreBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      public Builder setScore(
-          int index, org.jombie.server.Messages.ServerMessage.Score.Builder builderForValue) {
-        if (scoreBuilder_ == null) {
-          ensureScoreIsMutable();
-          score_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          scoreBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addScore(org.jombie.server.Messages.ServerMessage.Score value) {
-        if (scoreBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureScoreIsMutable();
-          score_.add(value);
-          onChanged();
-        } else {
-          scoreBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      public Builder addScore(
-          int index, org.jombie.server.Messages.ServerMessage.Score value) {
-        if (scoreBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureScoreIsMutable();
-          score_.add(index, value);
-          onChanged();
-        } else {
-          scoreBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      public Builder addScore(
-          org.jombie.server.Messages.ServerMessage.Score.Builder builderForValue) {
-        if (scoreBuilder_ == null) {
-          ensureScoreIsMutable();
-          score_.add(builderForValue.build());
-          onChanged();
-        } else {
-          scoreBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addScore(
-          int index, org.jombie.server.Messages.ServerMessage.Score.Builder builderForValue) {
-        if (scoreBuilder_ == null) {
-          ensureScoreIsMutable();
-          score_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          scoreBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      public Builder addAllScore(
-          java.lang.Iterable<? extends org.jombie.server.Messages.ServerMessage.Score> values) {
-        if (scoreBuilder_ == null) {
-          ensureScoreIsMutable();
-          super.addAll(values, score_);
-          onChanged();
-        } else {
-          scoreBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      public Builder clearScore() {
-        if (scoreBuilder_ == null) {
-          score_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-          onChanged();
-        } else {
-          scoreBuilder_.clear();
-        }
-        return this;
-      }
-      public Builder removeScore(int index) {
-        if (scoreBuilder_ == null) {
-          ensureScoreIsMutable();
-          score_.remove(index);
-          onChanged();
-        } else {
-          scoreBuilder_.remove(index);
-        }
-        return this;
-      }
-      public org.jombie.server.Messages.ServerMessage.Score.Builder getScoreBuilder(
-          int index) {
-        return getScoreFieldBuilder().getBuilder(index);
-      }
-      public org.jombie.server.Messages.ServerMessage.ScoreOrBuilder getScoreOrBuilder(
-          int index) {
-        if (scoreBuilder_ == null) {
-          return score_.get(index);  } else {
-          return scoreBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      public java.util.List<? extends org.jombie.server.Messages.ServerMessage.ScoreOrBuilder> 
-           getScoreOrBuilderList() {
-        if (scoreBuilder_ != null) {
-          return scoreBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(score_);
-        }
-      }
-      public org.jombie.server.Messages.ServerMessage.Score.Builder addScoreBuilder() {
-        return getScoreFieldBuilder().addBuilder(
-            org.jombie.server.Messages.ServerMessage.Score.getDefaultInstance());
-      }
-      public org.jombie.server.Messages.ServerMessage.Score.Builder addScoreBuilder(
-          int index) {
-        return getScoreFieldBuilder().addBuilder(
-            index, org.jombie.server.Messages.ServerMessage.Score.getDefaultInstance());
-      }
-      public java.util.List<org.jombie.server.Messages.ServerMessage.Score.Builder> 
-           getScoreBuilderList() {
-        return getScoreFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          org.jombie.server.Messages.ServerMessage.Score, org.jombie.server.Messages.ServerMessage.Score.Builder, org.jombie.server.Messages.ServerMessage.ScoreOrBuilder> 
-          getScoreFieldBuilder() {
-        if (scoreBuilder_ == null) {
-          scoreBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              org.jombie.server.Messages.ServerMessage.Score, org.jombie.server.Messages.ServerMessage.Score.Builder, org.jombie.server.Messages.ServerMessage.ScoreOrBuilder>(
-                  score_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
-                  getParentForChildren(),
-                  isClean());
-          score_ = null;
-        }
-        return scoreBuilder_;
-      }
-      
-      // optional .org.jombie.server.ServerMessage.DeathNews death = 4;
+      // optional .org.jombie.server.ServerMessage.DeathNews death = 3;
       private org.jombie.server.Messages.ServerMessage.DeathNews death_ = org.jombie.server.Messages.ServerMessage.DeathNews.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           org.jombie.server.Messages.ServerMessage.DeathNews, org.jombie.server.Messages.ServerMessage.DeathNews.Builder, org.jombie.server.Messages.ServerMessage.DeathNewsOrBuilder> deathBuilder_;
       public boolean hasDeath() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       public org.jombie.server.Messages.ServerMessage.DeathNews getDeath() {
         if (deathBuilder_ == null) {
@@ -6272,7 +5864,7 @@ public final class Messages {
         } else {
           deathBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         return this;
       }
       public Builder setDeath(
@@ -6283,12 +5875,12 @@ public final class Messages {
         } else {
           deathBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         return this;
       }
       public Builder mergeDeath(org.jombie.server.Messages.ServerMessage.DeathNews value) {
         if (deathBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
               death_ != org.jombie.server.Messages.ServerMessage.DeathNews.getDefaultInstance()) {
             death_ =
               org.jombie.server.Messages.ServerMessage.DeathNews.newBuilder(death_).mergeFrom(value).buildPartial();
@@ -6299,7 +5891,7 @@ public final class Messages {
         } else {
           deathBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         return this;
       }
       public Builder clearDeath() {
@@ -6309,11 +5901,11 @@ public final class Messages {
         } else {
           deathBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       public org.jombie.server.Messages.ServerMessage.DeathNews.Builder getDeathBuilder() {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         onChanged();
         return getDeathFieldBuilder().getBuilder();
       }
@@ -6338,12 +5930,12 @@ public final class Messages {
         return deathBuilder_;
       }
       
-      // optional .org.jombie.server.ServerMessage.Info info = 5;
+      // optional .org.jombie.server.ServerMessage.Info info = 4;
       private org.jombie.server.Messages.ServerMessage.Info info_ = org.jombie.server.Messages.ServerMessage.Info.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           org.jombie.server.Messages.ServerMessage.Info, org.jombie.server.Messages.ServerMessage.Info.Builder, org.jombie.server.Messages.ServerMessage.InfoOrBuilder> infoBuilder_;
       public boolean hasInfo() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       public org.jombie.server.Messages.ServerMessage.Info getInfo() {
         if (infoBuilder_ == null) {
@@ -6362,7 +5954,7 @@ public final class Messages {
         } else {
           infoBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder setInfo(
@@ -6373,12 +5965,12 @@ public final class Messages {
         } else {
           infoBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder mergeInfo(org.jombie.server.Messages.ServerMessage.Info value) {
         if (infoBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010) &&
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
               info_ != org.jombie.server.Messages.ServerMessage.Info.getDefaultInstance()) {
             info_ =
               org.jombie.server.Messages.ServerMessage.Info.newBuilder(info_).mergeFrom(value).buildPartial();
@@ -6389,7 +5981,7 @@ public final class Messages {
         } else {
           infoBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         return this;
       }
       public Builder clearInfo() {
@@ -6399,11 +5991,11 @@ public final class Messages {
         } else {
           infoBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       public org.jombie.server.Messages.ServerMessage.Info.Builder getInfoBuilder() {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getInfoFieldBuilder().getBuilder();
       }
@@ -6475,11 +6067,6 @@ public final class Messages {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_org_jombie_server_ServerMessage_DeathNews_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_org_jombie_server_ServerMessage_Score_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_org_jombie_server_ServerMessage_Score_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_org_jombie_server_ServerMessage_Projectile_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -6507,28 +6094,27 @@ public final class Messages {
       "dX\030\001 \002(\005\022\n\n\002dy\030\002 \002(\005\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002" +
       "(\005\0329\n\005Shoot\022\t\n\001X\030\001 \002(\005\022\t\n\001Y\030\002 \002(\005\022\014\n\004dir" +
       "X\030\003 \002(\005\022\014\n\004dirY\030\004 \002(\005\032\027\n\005Death\022\016\n\006killer" +
-      "\030\001 \002(\t\"\307\006\n\rServerMessage\0226\n\003new\030\001 \003(\0132).",
+      "\030\001 \002(\t\"\277\006\n\rServerMessage\0226\n\003new\030\001 \001(\0132).",
       "org.jombie.server.ServerMessage.newComer" +
       "\0229\n\004proj\030\002 \001(\0132+.org.jombie.server.Serve" +
-      "rMessage.Projectile\0225\n\005score\030\003 \003(\0132&.org" +
-      ".jombie.server.ServerMessage.Score\0229\n\005de" +
-      "ath\030\004 \001(\0132*.org.jombie.server.ServerMess" +
-      "age.DeathNews\0223\n\004info\030\005 \001(\0132%.org.jombie" +
-      ".server.ServerMessage.Info\032\201\001\n\004Info\022\t\n\001x" +
-      "\030\001 \002(\005\022\t\n\001y\030\002 \002(\005\022\r\n\005handX\030\003 \002(\005\022\r\n\005hand" +
-      "Y\030\004 \002(\005\0227\n\004type\030\005 \002(\0162).org.jombie.serve" +
-      "r.ServerMessage.UnitType\022\014\n\004user\030\006 \002(\t\032+",
-      "\n\tDeathNews\022\016\n\006victim\030\001 \002(\t\022\016\n\006killer\030\002 " +
-      "\002(\t\0324\n\005Score\022\014\n\004user\030\001 \002(\t\022\r\n\005kills\030\002 \002(" +
-      "\005\022\016\n\006deaths\030\003 \002(\005\032u\n\nProjectile\022>\n\004type\030" +
-      "\001 \002(\01620.org.jombie.server.ServerMessage." +
-      "Projectile.Type\022\r\n\005owner\030\002 \002(\t\"\030\n\004Type\022\020" +
-      "\n\014PistolBullet\020\001\032\245\001\n\010newComer\022<\n\004team\030\001 " +
-      "\002(\0162..org.jombie.server.ServerMessage.ne" +
-      "wComer.Team\022\014\n\004name\030\002 \002(\t\0227\n\004type\030\003 \002(\0162" +
-      ").org.jombie.server.ServerMessage.UnitTy" +
-      "pe\"\024\n\004Team\022\005\n\001A\020\001\022\005\n\001B\020\002\"\026\n\010UnitType\022\n\n\006",
-      "Marine\020\001"
+      "rMessage.Projectile\0229\n\005death\030\003 \001(\0132*.org" +
+      ".jombie.server.ServerMessage.DeathNews\0223" +
+      "\n\004info\030\004 \001(\0132%.org.jombie.server.ServerM" +
+      "essage.Info\032\201\001\n\004Info\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002" +
+      "(\005\022\r\n\005handX\030\003 \002(\005\022\r\n\005handY\030\004 \002(\005\0227\n\004type" +
+      "\030\005 \002(\0162).org.jombie.server.ServerMessage" +
+      ".UnitType\022\014\n\004user\030\006 \002(\t\032+\n\tDeathNews\022\016\n\006" +
+      "victim\030\001 \002(\t\022\016\n\006killer\030\002 \002(\t\032\247\001\n\nProject",
+      "ile\022>\n\004type\030\001 \002(\01620.org.jombie.server.Se" +
+      "rverMessage.Projectile.Type\022\r\n\005owner\030\002 \002" +
+      "(\t\022\t\n\001X\030\003 \002(\005\022\t\n\001Y\030\004 \002(\005\022\014\n\004dirX\030\005 \002(\005\022\014" +
+      "\n\004dirY\030\006 \002(\005\"\030\n\004Type\022\020\n\014PistolBullet\020\001\032\327" +
+      "\001\n\010newComer\022<\n\004team\030\001 \002(\0162..org.jombie.s" +
+      "erver.ServerMessage.newComer.Team\022\014\n\004nam" +
+      "e\030\002 \002(\t\0227\n\004type\030\003 \002(\0162).org.jombie.serve" +
+      "r.ServerMessage.UnitType\022\t\n\001x\030\004 \002(\005\022\t\n\001y" +
+      "\030\005 \002(\005\022\014\n\004dirX\030\007 \002(\005\022\014\n\004dirY\030\010 \002(\005\"\024\n\004Te" +
+      "am\022\005\n\001A\020\001\022\005\n\001B\020\002\"\026\n\010UnitType\022\n\n\006Marine\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6572,7 +6158,7 @@ public final class Messages {
           internal_static_org_jombie_server_ServerMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_org_jombie_server_ServerMessage_descriptor,
-              new java.lang.String[] { "New", "Proj", "Score", "Death", "Info", },
+              new java.lang.String[] { "New", "Proj", "Death", "Info", },
               org.jombie.server.Messages.ServerMessage.class,
               org.jombie.server.Messages.ServerMessage.Builder.class);
           internal_static_org_jombie_server_ServerMessage_Info_descriptor =
@@ -6591,28 +6177,20 @@ public final class Messages {
               new java.lang.String[] { "Victim", "Killer", },
               org.jombie.server.Messages.ServerMessage.DeathNews.class,
               org.jombie.server.Messages.ServerMessage.DeathNews.Builder.class);
-          internal_static_org_jombie_server_ServerMessage_Score_descriptor =
-            internal_static_org_jombie_server_ServerMessage_descriptor.getNestedTypes().get(2);
-          internal_static_org_jombie_server_ServerMessage_Score_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_org_jombie_server_ServerMessage_Score_descriptor,
-              new java.lang.String[] { "User", "Kills", "Deaths", },
-              org.jombie.server.Messages.ServerMessage.Score.class,
-              org.jombie.server.Messages.ServerMessage.Score.Builder.class);
           internal_static_org_jombie_server_ServerMessage_Projectile_descriptor =
-            internal_static_org_jombie_server_ServerMessage_descriptor.getNestedTypes().get(3);
+            internal_static_org_jombie_server_ServerMessage_descriptor.getNestedTypes().get(2);
           internal_static_org_jombie_server_ServerMessage_Projectile_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_org_jombie_server_ServerMessage_Projectile_descriptor,
-              new java.lang.String[] { "Type", "Owner", },
+              new java.lang.String[] { "Type", "Owner", "X", "Y", "DirX", "DirY", },
               org.jombie.server.Messages.ServerMessage.Projectile.class,
               org.jombie.server.Messages.ServerMessage.Projectile.Builder.class);
           internal_static_org_jombie_server_ServerMessage_newComer_descriptor =
-            internal_static_org_jombie_server_ServerMessage_descriptor.getNestedTypes().get(4);
+            internal_static_org_jombie_server_ServerMessage_descriptor.getNestedTypes().get(3);
           internal_static_org_jombie_server_ServerMessage_newComer_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_org_jombie_server_ServerMessage_newComer_descriptor,
-              new java.lang.String[] { "Team", "Name", "Type", },
+              new java.lang.String[] { "Team", "Name", "Type", "X", "Y", "DirX", "DirY", },
               org.jombie.server.Messages.ServerMessage.newComer.class,
               org.jombie.server.Messages.ServerMessage.newComer.Builder.class);
           return null;

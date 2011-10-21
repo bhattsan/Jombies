@@ -1,33 +1,32 @@
 package org.jombie.server;
 
-import java.awt.TrayIcon.MessageType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.jombie.server.Messages.ClientMessage;
 import org.jombie.server.Messages.ClientMessage.Location;
+import org.jombie.server.Messages.ServerMessage;
+import org.jombie.server.Messages.ServerMessage.DeathNews;
+import org.jombie.server.Messages.ServerMessage.Info;
+import org.jombie.server.Messages.ServerMessage.Projectile;
 import org.jombie.unit.marines.Marine;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class Game implements Runnable {
-	private static final double THRESHOLD = 3;
 	private String gameID;
 	private int gameSecs;
 	private int currSec;
-	private HashMap<String, Integer> kills;
-	private HashMap<String, Integer> deaths;
 	private HashMap<String, Client> clientMap;
 	private ArrayList<Client> teamA;
 	private ArrayList<Client> teamB;
 	private ArrayList<Client> clients;
 	private ConcurrentLinkedQueue<String> msgQueue;
+	private ConcurrentLinkedQueue<String> broadCastQueue;
 //	private BufferedImage theMap;
 	public Game(String gameID, int mins, String mapName) {
 		this.gameID = gameID;
-		kills = new HashMap<>();
-		deaths = new HashMap<>();
 		teamA = new ArrayList<>();
 		teamB = new ArrayList<>();
 		clientMap = new HashMap<>();
@@ -38,7 +37,6 @@ public class Game implements Runnable {
 //		try { :'(
 //			theMap = ImageIO.read(new File(mapName));
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 	}
@@ -61,7 +59,6 @@ public class Game implements Runnable {
 
 	public void runGame() {
 		Thread t = new Thread(this);
-		System.out.println("der der der");
 		t.start();
 	}
 
@@ -70,7 +67,6 @@ public class Game implements Runnable {
 	@Override
 	public void run() {
 		int inThisSec = 0;
-		System.out.println("Got here");
 		for(Client currClient : clients){
 			
 			currClient.sendMessage(Protocol.GAME_START);
@@ -83,20 +79,28 @@ public class Game implements Runnable {
 				inThisSec = 0;
 			}
 			simulateGame();
+			sendToBroadCast();
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		endGame();
 	}
 
+	
+	private void sendToBroadCast() {
+		for(String message : broadCastQueue){
+			for(Client currClient : clients){
+				currClient.sendMessage(message);
+			}
+		}
+	}
 	private void parseMessages() {
+		broadCastQueue.clear();
 		while(!msgQueue.isEmpty()){
 			String parse = msgQueue.remove();
-			System.out.println("GOT THIS!!"+ parse);
 			String user = parse.substring(0, parse.indexOf(':'));
 			String message = parse.substring(parse.indexOf(':')+1);
 			Client theClient = clientMap.get(user);
@@ -107,7 +111,6 @@ public class Game implements Runnable {
 			try {
 				theMessage = ClientMessage.parseFrom(protoMess.substring(0,length).getBytes());
 			} catch (InvalidProtocolBufferException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(theMessage.hasChDir()){
@@ -117,19 +120,50 @@ public class Game implements Runnable {
 				theClient.setCurrPosY(dir.getY());
 				theClient.getDir().setxCoord(dir.getDX());
 				theClient.getDir().setyCoord(dir.getDy());
+				//set the broadcast message
+				ServerMessage.Builder serverB = ServerMessage.newBuilder();
+				Info.Builder infoB = Info.newBuilder();
+				infoB.setX((int) theClient.getPos().getxCoord());
+				infoB.setY((int) theClient.getPos().getyCoord());
+				infoB.setHandX((int) theClient.getDir().getxCoord());
+				infoB.setHandY((int) theClient.getDir().getyCoord());
+				serverB.setInfo(infoB);
+				String mess = serverB.build().toByteString().toStringUtf8();
+				broadCastQueue.add(mess.length()+":"+mess);
 				
 				System.out.println(user+","+theClient.getCurrPosX()+ " "+ theClient.getCurrPosY());
-			} else if (theMessage.hasShootDie()){
-				//shoot shit
-				System.out.println("SHOT FIRED!");
 			} else if (theMessage.hasDeath()){
-				System.out.println("RELOADING!");
-			}
+				//shoot shit
+				String killer = theMessage.getDeath().getKiller();
+				String victim = theClient.getUserName();
+				
+				ServerMessage.Builder death = ServerMessage.newBuilder();
+				DeathNews.Builder newB = DeathNews.newBuilder();
+				newB.setKiller(killer);
+				newB.setVictim(victim);
+				death.setDeath(newB);
+				
+				String mess = death.build().toByteString().toStringUtf8();
+				broadCastQueue.add(mess.length()+":"+mess);
+				
+				System.out.println("DEATH!");
+			} else if (theMessage.hasShootDie()){
+				ServerMessage.Builder newShoot = ServerMessage.newBuilder();
+				Projectile.Builder shoot = Projectile.newBuilder();
+				shoot.setX(theMessage.getShootDie().getX());
+				shoot.setY(theMessage.getShootDie().getY());
+				shoot.setDirX(theMessage.getShootDie().getDirX());
+				shoot.setDirY(theMessage.getShootDie().getDirY());
+				newShoot.setProj(shoot);
+				
+				String mess = newShoot.build().toByteString().toStringUtf8();
+				broadCastQueue.add(mess.length()+":"+mess);
+				
+			} 
 		}
 	}
 	
 	private void endGame() {
-		// TODO Auto-generated method stub
 		for(Client currClient : clients){
 			currClient.sendMessage(Protocol.SERVER_BYE);
 		}
