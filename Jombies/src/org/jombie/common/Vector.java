@@ -37,4 +37,19 @@ public class Vector {
 		}
 		return angle;
 	}
+	public double findAngle(){
+		double angle;
+		int dX, dY;
+		dX = xCoord;
+		dY = yCoord;
+		if (dX == 0) {
+			angle = Math.PI / 2 * (yCoord> 0 ? 1 : -1);
+		} else {
+			angle = Math.atan((double) dY / dX);
+			if (dX < 0) {
+				angle += Math.PI;
+			}
+		}
+		return angle;
+	}
 }
