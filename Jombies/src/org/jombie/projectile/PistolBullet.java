@@ -5,10 +5,11 @@ import org.jombie.common.Vector;
 
 public class PistolBullet extends Projectile {
 	public PistolBullet(){
-		speed = 3;
-		radius = 4;
+		speed = 4;
+		radius = 5;
+		damage = 5;
 	}
-	public void fire(Vector starting, Vector direction){
+	public void fire(Vector starting, Vector direction){ 
 		
 	}
 }
