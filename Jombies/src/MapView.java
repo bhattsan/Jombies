@@ -141,10 +141,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	public void newComerArrived(String name, Unit.Team affl, Unit newComer,
-			Vector location) {
+			Vector location, Vector direction) {
 		newComer.setUserId(name);
 		newComer.myTeam = affl;
 		newComer.setLocation(location);
+		newComer.setDirection(direction);
 		otherPlayers.add(newComer);
 	}
 
@@ -197,7 +198,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			  Vector loc = new Vector();
 			  loc.setxCoord(1560+60*i);
 			  loc.setyCoord(1200);
-			  newComerArrived("EVIL"+i, Unit.Team.TEAM_B, enemy, loc);
+			  newComerArrived("EVIL"+i, Unit.Team.TEAM_B, enemy, loc, new Vector());
 //			  System.out.println("New comer??");
 		  }
 		 
@@ -520,7 +521,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			pos.addScalarVector(direction, _meRadius / 2 + _gunRadius / 2);
 			s.setPosition(pos);
 			s.setDirection(direction);
-			myClient.sendShoot(direction, pos);
+//			myClient.sendShoot(direction, pos);
 			projectiles.add(s);
 		}
 	}

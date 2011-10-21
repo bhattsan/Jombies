@@ -8,6 +8,7 @@ public class PistolBullet extends Projectile {
 		speed = 4;
 		radius = 5;
 		damage = 5;
+		id = projectileId++;
 	}
 	public void fire(Vector starting, Vector direction){ 
 		
