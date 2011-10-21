@@ -54,8 +54,9 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static final int LEFT = 2;
 	private static final int UP = 1;
 	private static final int DOWN = 0;
+	private static final int SPEED = 10;
 	private static int personX = _sizeX/2, personY = _sizeY/2;
-	private boolean inPlace = false;
+	private Color map = Color.WHITE;
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
 	BufferedImage plane;
@@ -64,9 +65,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 	byte direction = 0; // 0 -down, 1-right, 2-up, 3-left
 	private Set<Integer> pressedKeys;
-	public boolean isZero(int RGB) {
-		return (RGB == POKEZERO) || RGB == -1;
-	}
+	
 
 	PanelTest() {
 		setBackground(Color.BLACK);
@@ -122,8 +121,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		} else if (arg0.getKeyCode() == KeyEvent.VK_S) {
 			pressedKeys.add(DOWN);
 		}
-		
-		repaint();
 	}
 
 	private void move() {
@@ -142,10 +139,12 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void moveAStep(Integer next) {
-		if(next==UP) moveUp();
-		else if(next==DOWN) moveDown();
-		else if(next==LEFT) moveLeft();
-		else if(next==RIGHT) moveRight();
+		for(int i=0; i<SPEED; i++){
+			if(next==UP) moveUp();
+			else if(next==DOWN) moveDown();
+			else if(next==LEFT) moveLeft();
+			else if(next==RIGHT) moveRight();
+		}
 	}
 
 	public boolean isFocusTraversable() {
@@ -153,25 +152,40 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void moveLeft() {
-		if (x > 0) {
+		if((x==0 && personX> 0) || 
+				(x+getWidth() == plane.getWidth() && personX >_sizeX/2)){
+			personX--;
+		} else if (x>0){
 			x--;
 		}
 	}
 
 	private void moveUp() {
-		if (y > 0) {
+		if((y==0 && personY> 0) || 
+				(y+getHeight() == plane.getHeight() && personY >_sizeY/2)){
+			personY--;
+		} else if (y>0){
 			y--;
 		}
 	}
 
 	private void moveRight() {
-		if (x < plane.getWidth()) {
+		if((x==0 && personX< (_sizeY/2+_meRadius)) || 
+				(x+getWidth() == plane.getWidth() && personX + _meRadius<getWidth())){
+			personX++;
+		} else if (x+getWidth()<plane.getWidth()){
 			x++;
 		}
 	}
 
 	private void moveDown() {
-		if (y < plane.getHeight()) {
+		if((y==0 && personY< _sizeY/2) || 
+				(y+getHeight() == plane.getHeight() && 
+				y+ personY + _meRadius < plane.getHeight())){
+			System.out.println("sane1 "+personY+","+y+","+plane.getHeight());
+			personY++;
+		} else if (y+getHeight()<plane.getHeight()){
+			System.out.println("sane2 "+y);
 			y++;
 		}
 	}
