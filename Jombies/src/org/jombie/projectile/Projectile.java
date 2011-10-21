@@ -55,6 +55,8 @@ public abstract class Projectile {
 		}
 		return false;
 	}
+	
 	Vector direction = new Vector();
 	Vector position = new Vector();
+	
 }

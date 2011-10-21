@@ -88,6 +88,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static int personX = _sizeX / 2, personY = _sizeY / 2;
 	private Color map = Color.WHITE;
 	private Vector mousePoint = new Vector();
+
 	public Unit myUnit;
 	public List<Unit> otherPlayers;
 	public Vector myLocation;
@@ -160,10 +161,10 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			bulletImg = ImageIO.read(new File(bullet));
 			weaponImg = ImageIO.read(new File(weapon));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		plane = (BufferedImage) ii.getImage();
+
 		projectiles = new ArrayList<Projectile>();
 
 		setDoubleBuffered(true);
@@ -278,15 +279,15 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		return first == second;
 	}
 
-	public boolean isValidSpace(int x, int y, int radius) {
-		if (x <= 0 || x > actual.getWidth() || y <= 0 || y > actual.getHeight()) {
+	public static boolean isValidSpace(int x, int y, int radius, BufferedImage image) {
+		if (x <= 0 || x > image.getWidth() || y <= 0 || y > image.getHeight()) {
 			return false;
 		}
 		for (int i = x; i < x + radius; i++) {
-			if (i < actual.getWidth()) {
+			if (i < image.getWidth()) {
 				for (int j = y; j < y + radius; j++) {
-					if (j < actual.getHeight()) {
-						if (actual.getRGB(i, j) == Color.black.getRGB())
+					if (j < image.getHeight()) {
+						if (image.getRGB(i, j) == Color.black.getRGB())
 							return false;
 					}
 				}
@@ -297,18 +298,18 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 	public boolean isValidSpace(Vector position, int radius) {
 		return isValidSpace((int) position.getxCoord(),
-				(int) position.getyCoord(), radius);
+				(int) position.getyCoord(), radius, actual);
 	}
 
 	private void moveLeft() {
 		if ((x == 0 && personX > _meRadius / 2)
 				|| (x + getWidth() == plane.getWidth() && personX > _sizeX / 2)) {
 			if (isValidSpace(x + personX - 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				personX--;
 		} else if (x > 0) {
 			if (isValidSpace(x + personX - 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				x--;
 		}
 	}
@@ -317,11 +318,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		if ((y == 0 && personY > _meRadius / 2)
 				|| (y + getHeight() == plane.getHeight() && personY > _sizeY / 2)) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY
-					- _meRadius / 2 - 1, _meRadius))
+					- _meRadius / 2 - 1, _meRadius, actual))
 				personY--;
 		} else if (y > 0) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY
-					- _meRadius / 2 - 1, _meRadius))
+					- _meRadius / 2 - 1, _meRadius, actual))
 				y--;
 		}
 	}
@@ -331,11 +332,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				|| (x + getWidth() == plane.getWidth() && personX + _meRadius
 						/ 2 < getWidth())) {
 			if (isValidSpace(x + personX + 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				personX++;
 		} else if (x + getWidth() < plane.getWidth()) {
 			if (isValidSpace(x + personX + 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				x++;
 		}
 	}
@@ -345,11 +346,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				|| (y + getHeight() == plane.getHeight() && y + personY
 						+ _meRadius / 2 < plane.getHeight())) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY + 1
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				personY++;
 		} else if (y + getHeight() < plane.getHeight()) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY + 1
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				y++;
 		}
 	}
@@ -377,7 +378,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.drawString(myUnit.userId, personX + gunX+10, personY - gunY-10);
 
 		for (Projectile proj : projectiles) {
-			// System.out.println("??");
 			g.setColor(Color.BLUE);
 			Vector pos = proj.getPosition();
 			if (pos.getxCoord() < x + _sizeX && pos.getxCoord() > x
@@ -421,6 +421,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+
 		// explode = true;
 		Projectile s;
 		if ((s = ((RangedWeapon) myUnit.myWeapon).getBullet()) != null) {
@@ -445,7 +446,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			s.setDirection(direction);
 			projectiles.add(s);
 		}
-		// repaint();
 	}
 
 	@Override
