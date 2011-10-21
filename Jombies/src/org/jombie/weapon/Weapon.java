@@ -1,7 +1,10 @@
 package org.jombie.weapon;
 
-public abstract class Weapon {
+import java.awt.image.BufferedImage;
 
+
+public abstract class Weapon {
+	
 	public String getName() {
 		return name;
 	}
@@ -20,6 +23,4 @@ public abstract class Weapon {
 
 	String name;
 	int radius;
-	
-	public abstract boolean attack();
 }

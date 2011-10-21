@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import org.jombie.projectile.PistolBullet;
-
+import org.jombie.projectile.Projectile;
 
 public class Pistol extends RangedWeapon {
 	long millisLastEmpty;
@@ -20,7 +20,7 @@ public class Pistol extends RangedWeapon {
 				reloadTimer.stop();
 			}
 		});
-		capacity = 16;
+		capacity = 64;
 		currentClip = capacity;
 		name = "Automatic Pistol";
 		radius = 10;
@@ -28,21 +28,21 @@ public class Pistol extends RangedWeapon {
 	}
 
 	@Override
-	public boolean attack() {
+	public Projectile getBullet() {
 		long currentTime = System.currentTimeMillis();
 		if(currentClip==0){
 			if(currentTime-millisLastEmpty>reloadTime){
 				currentClip = capacity-1;
-				return true;
+				return new PistolBullet();
 			}
 			else
-				return false;
+				return null;
 		}
 		currentClip--;
 		if(currentClip==0){
 			millisLastEmpty = currentTime;
 			reloadTimer.start();
 		}
-		return true;
+		return new PistolBullet();
 	}
 }

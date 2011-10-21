@@ -72,5 +72,5 @@ public abstract class RangedWeapon extends Weapon {
 		this.shell = shell;
 	}
 
-	public abstract boolean attack();
+	public abstract Projectile getBullet();
 }
