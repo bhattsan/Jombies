@@ -192,16 +192,17 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		};
 		myUnit.setLocation(myLocation);
 		otherPlayers = new ArrayList<>();
-		
-		  for(int i=0; i<3; i++){ 
-			  Marine enemy = new Marine(); 
-			  Vector loc = new Vector();
-			  loc.setxCoord(1560+60*i);
-			  loc.setyCoord(1200);
-			  newComerArrived("EVIL"+i, Unit.Team.TEAM_B, enemy, loc, new Vector());
-//			  System.out.println("New comer??");
-		  }
-		 
+
+		for (int i = 0; i < 3; i++) {
+			Marine enemy = new Marine();
+			Vector loc = new Vector();
+			loc.setxCoord(1560 + 60 * i);
+			loc.setyCoord(1200);
+			newComerArrived("EVIL" + i, Unit.Team.TEAM_B, enemy, loc,
+					Vector.getAngledVector(10.0));
+			// System.out.println("New comer??");
+		}
+
 		healthBar = new HealthBar(myUnit);
 		_gunSize = ((RangedWeapon) myUnit.myWeapon).getRadius();
 		_meRadius = myUnit.getSize();
@@ -238,6 +239,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				me.setxCoord(personX);
 				me.setyCoord(personY);
 				weaponAngle = me.findAngle(mousePoint);
+				
 				ArrayList<Projectile> toKill = new ArrayList<Projectile>();
 				for (Projectile proj : projectiles) {
 					proj.updatePosition();
@@ -422,9 +424,10 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.setColor(Color.WHITE);
 		g.drawImage(plane, 0, 0, _sizeX, _sizeY, x, y, x + _sizeX, y + _sizeY,
 				this);
-		g.setColor(myUnit.myTeam==Unit.Team.TEAM_A?Color.GREEN:Color.ORANGE);
-		g.fillOval(personX - myUnit.getSize() / 2, personY - myUnit.getSize() / 2, myUnit.getSize(),
-				myUnit.getSize());
+		g.setColor(myUnit.myTeam == Unit.Team.TEAM_A ? Color.GREEN
+				: Color.ORANGE);
+		g.fillOval(personX - myUnit.getSize() / 2, personY - myUnit.getSize()
+				/ 2, myUnit.getSize(), myUnit.getSize());
 		int gunX = (int) (_gunRadius * Math.cos(weaponAngle));
 		int gunY = (int) (_gunRadius * Math.sin(weaponAngle));
 		g.setColor(Color.RED);
@@ -437,22 +440,27 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			g.setColor(Color.BLACK);
 		}
 		g.drawString(myUnit.userId, personX + gunX + 10, personY - gunY - 10);
-		
+
 		for (Unit ut : otherPlayers) {
-			g.setColor(ut.myTeam==Unit.Team.TEAM_A?Color.GREEN:Color.ORANGE);
+			g.setColor(ut.myTeam == Unit.Team.TEAM_A ? Color.GREEN
+					: Color.ORANGE);
 			Vector pos = ut.getLocation();
-//			System.out.println(pos);
+			// System.out.println(pos);
 			if (pos.getxCoord() < x + _sizeX && pos.getxCoord() > x
 					&& pos.getyCoord() < y + _sizeY && pos.getyCoord() > y) {
-				System.out.println("HI");
 				g.fillOval((int) pos.getxCoord() - x,
-						(int) pos.getyCoord() - y, ut.getSize(),
-						ut.getSize());
+						(int) pos.getyCoord() - y, ut.getSize(), ut.getSize());
 				g.setColor(Color.RED);
-				g.drawString(myUnit.userId, (int)pos.getxCoord() - x, (int) pos.getyCoord() - y);
+				g.drawString(myUnit.userId, (int) pos.getxCoord() - x,
+						(int) pos.getyCoord() - y);
+				
+				int gunXT = (int) (ut.getSize()* Math.cos(weaponAngle));
+				int gunYT = (int) (ut.getSize()* Math.sin(weaponAngle));
+				g.setColor(Color.RED);
+				/*g.fillOval(ut.getLocation().getxCoord() - x + gunXT - _gunSize / 2,
+						ut.getLocation().getyCoord() - gunYT - _gunSize / 2, _gunSize, _gunSize);*/
 			}
 		}
-
 
 		for (Projectile proj : projectiles) {
 			g.setColor(Color.BLUE);
@@ -521,7 +529,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			pos.addScalarVector(direction, _meRadius / 2 + _gunRadius / 2);
 			s.setPosition(pos);
 			s.setDirection(direction);
-//			myClient.sendShoot(direction, pos);
+			// myClient.sendShoot(direction, pos);
 			projectiles.add(s);
 		}
 	}
