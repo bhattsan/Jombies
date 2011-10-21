@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +9,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashSet;
@@ -44,7 +47,7 @@ public class MapView extends JFrame {
 }
 
 class PanelTest extends JPanel implements KeyListener, FocusListener,
-		MouseMotionListener {
+		MouseMotionListener, ImageObserver, MouseListener {
 	private static final int POKEZERO = -65794;
 	private static final int _sizeX = 400;
 	private static final int _sizeY = 400;
@@ -59,7 +62,9 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private boolean inPlace = false;
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
-	BufferedImage plane;
+	private String explosion = "Explode.gif";
+	BufferedImage plane, expl;
+	boolean explode = false;
 
 	double weaponAngle = 0;
 
@@ -70,12 +75,20 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		return (RGB == POKEZERO) || RGB == -1;
 	}
 
+	public boolean imageUpdate(Image img, int flags, int x, int y, int w, int h) {
+
+		repaint();
+		return true;
+	}
+
 	PanelTest() {
 		setBackground(Color.BLACK);
 		pressedKeys = new LinkedHashSet<>();
 		ImageIcon ii = null;
+		
 		try {
 			ii = new ImageIcon(ImageIO.read(new File(craft1)));
+			expl = ImageIO.read(new File(explosion));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -195,11 +208,13 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.drawImage(plane, 0, 0, _sizeX, _sizeY, x, y, x + _sizeX, y + _sizeY,
 				this);
 		g.setColor(Color.GREEN);
-		g.fillOval(personX-_meRadius/2, personY-_meRadius/2, _meRadius, _meRadius);
+		g.fillOval(personX - _meRadius / 2, personY - _meRadius / 2, _meRadius,
+				_meRadius);
 		int x = (int) (_gunRadius * Math.cos(weaponAngle));
 		int y = (int) (_gunRadius * Math.sin(weaponAngle));
 		g.setColor(Color.RED);
-		g.fillOval(personX + x-_gunSize/2, personY - y-_gunSize/2, _gunSize, _gunSize);
+		g.fillOval(personX + x - _gunSize / 2, personY - y - _gunSize / 2,
+				_gunSize, _gunSize);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -233,11 +248,41 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		if (xHit == 0) {
 			weaponAngle = Math.PI / 2 * (yHit > 0 ? 1 : -1);
 		} else {
-			weaponAngle = Math.atan((double)yHit / xHit);
-			if(xHit<0){
-				weaponAngle+=Math.PI;
+			weaponAngle = Math.atan((double) yHit / xHit);
+			if (xHit < 0) {
+				weaponAngle += Math.PI;
 			}
 		}
 		System.out.println(weaponAngle);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
