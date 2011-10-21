@@ -62,5 +62,7 @@ public abstract class Unit {
 	public int size;
 	public enum Team{TEAM_A, TEAM_B};
 	public Team myTeam;
+	public int kills = 0;
+	public int deaths = 0;
 	public abstract boolean attackPosition(Vector targetPosition);
 }

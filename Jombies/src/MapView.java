@@ -28,8 +28,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import org.jombie.client.JombieClient;
 import org.jombie.common.Vector;
-import org.jombie.projectile.PistolBullet;
 import org.jombie.projectile.Projectile;
 import org.jombie.unit.Unit;
 import org.jombie.unit.marines.Marine;
@@ -111,6 +111,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private Set<Integer> pressedKeys;
 
 	int countUIThread = 0;
+	JombieClient myClient;
 
 	public boolean imageUpdate(Image img, int flags, int x, int y, int w, int h) {
 
@@ -125,6 +126,55 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public int getWidth() {
 		return _sizeX;
 	};
+
+	public Unit findUnit(String userId) {
+		if (userId.equals(myUnit.userId)) {
+			return null;
+		} else {
+			for (Unit ut : otherPlayers) {
+				if (userId.equals(ut.userId)) {
+					return ut;
+				}
+			}
+			return null;
+		}
+	}
+
+	public void newComerArrived(String name, Unit.Team affl, Unit newComer,
+			Vector location) {
+		newComer.setUserId(name);
+		newComer.myTeam = affl;
+		newComer.setLocation(location);
+		otherPlayers.add(newComer);
+	}
+
+	public void deathNewsArrived(String killer, String victim) {
+		if (killer.equals(myUnit.userId)) {
+			myUnit.kills++;
+		} else if (victim.equals(myUnit.userId)) {
+			myUnit.deaths++;
+		}
+	}
+
+	public void scoreUpdatesArrived(String user, int kills, int deaths) {
+		Unit ut = findUnit(user);
+		ut.kills = kills;
+		ut.deaths = deaths;
+	}
+
+	public void projectilesSpawned(Vector location, Vector direction,
+			String owner) {
+		Unit ut = findUnit(owner);
+		Projectile spawned = ((RangedWeapon) ut.myWeapon).getBullet();
+		spawned.setPosition(location);
+		spawned.setDirection(direction);
+	}
+
+	public void getInfo(String user, Vector location, Vector direction) {
+		Unit ut = findUnit(user);
+		ut.setLocation(location);
+		ut.setLocation(direction);
+	}
 
 	PanelTest() {
 
@@ -141,9 +191,16 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		};
 		myUnit.setLocation(myLocation);
 		otherPlayers = new ArrayList<>();
-		/*
-		 * for(int i=0; i<3; i++){ Marine enemy = new Marine(); enemy.set }
-		 */
+		
+		  for(int i=0; i<3; i++){ 
+			  Marine enemy = new Marine(); 
+			  Vector loc = new Vector();
+			  loc.setxCoord(1560+60*i);
+			  loc.setyCoord(1200);
+			  newComerArrived("EVIL"+i, Unit.Team.TEAM_B, enemy, loc);
+//			  System.out.println("New comer??");
+		  }
+		 
 		healthBar = new HealthBar(myUnit);
 		_gunSize = ((RangedWeapon) myUnit.myWeapon).getRadius();
 		_meRadius = myUnit.getSize();
@@ -279,7 +336,8 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		return first == second;
 	}
 
-	public static boolean isValidSpace(int x, int y, int radius, BufferedImage image) {
+	public static boolean isValidSpace(int x, int y, int radius,
+			BufferedImage image) {
 		if (x <= 0 || x > image.getWidth() || y <= 0 || y > image.getHeight()) {
 			return false;
 		}
@@ -363,19 +421,37 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.setColor(Color.WHITE);
 		g.drawImage(plane, 0, 0, _sizeX, _sizeY, x, y, x + _sizeX, y + _sizeY,
 				this);
-		g.setColor(Color.GREEN);
-		g.fillOval(personX - _meRadius / 2, personY - _meRadius / 2, _meRadius,
-				_meRadius);
+		g.setColor(myUnit.myTeam==Unit.Team.TEAM_A?Color.GREEN:Color.ORANGE);
+		g.fillOval(personX - myUnit.getSize() / 2, personY - myUnit.getSize() / 2, myUnit.getSize(),
+				myUnit.getSize());
 		int gunX = (int) (_gunRadius * Math.cos(weaponAngle));
 		int gunY = (int) (_gunRadius * Math.sin(weaponAngle));
 		g.setColor(Color.RED);
 		g.fillOval(personX + gunX - _gunSize / 2,
 				personY - gunY - _gunSize / 2, _gunSize, _gunSize);
-		if(actual.getRGB(x+personX + gunX+10, y+personY - gunY-10)==Color.BLACK.getRGB()){
+		if (actual.getRGB(x + personX + gunX + 10, y + personY - gunY - 10) == Color.BLACK
+				.getRGB()) {
 			g.setColor(Color.WHITE);
-		}else
-		g.setColor(Color.BLACK);
-		g.drawString(myUnit.userId, personX + gunX+10, personY - gunY-10);
+		} else {
+			g.setColor(Color.BLACK);
+		}
+		g.drawString(myUnit.userId, personX + gunX + 10, personY - gunY - 10);
+		
+		for (Unit ut : otherPlayers) {
+			g.setColor(ut.myTeam==Unit.Team.TEAM_A?Color.GREEN:Color.ORANGE);
+			Vector pos = ut.getLocation();
+//			System.out.println(pos);
+			if (pos.getxCoord() < x + _sizeX && pos.getxCoord() > x
+					&& pos.getyCoord() < y + _sizeY && pos.getyCoord() > y) {
+				System.out.println("HI");
+				g.fillOval((int) pos.getxCoord() - x,
+						(int) pos.getyCoord() - y, ut.getSize(),
+						ut.getSize());
+				g.setColor(Color.RED);
+				g.drawString(myUnit.userId, (int)pos.getxCoord() - x, (int) pos.getyCoord() - y);
+			}
+		}
+
 
 		for (Projectile proj : projectiles) {
 			g.setColor(Color.BLUE);
@@ -444,6 +520,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			pos.addScalarVector(direction, _meRadius / 2 + _gunRadius / 2);
 			s.setPosition(pos);
 			s.setDirection(direction);
+			myClient.sendShoot(direction, pos);
 			projectiles.add(s);
 		}
 	}
