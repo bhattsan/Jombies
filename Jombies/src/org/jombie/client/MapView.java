@@ -1,4 +1,5 @@
 package org.jombie.client;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -27,6 +28,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -48,7 +50,7 @@ public class MapView extends JFrame {
 		GridLayout gridL = new GridLayout(2, 1);
 		setLayout(new GridLayout(2, 1));
 		setBackground(Color.WHITE);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Game");
@@ -142,11 +144,34 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	public void newComerArrived(String name, Unit.Team affl, Unit newComer,
-			Vector location) {
-		newComer.setUserId(name);
-		newComer.myTeam = affl;
-		newComer.setLocation(location);
-		otherPlayers.add(newComer);
+			Vector location, Vector direction) {
+		if (name.equals(myUnit.getUserId())) {
+			if ((location.getxCoord() < _sizeX / 2)) {
+				personX = (int) location.getxCoord();
+				x = 0;
+			} else if ((actual.getWidth() - _sizeX / 2) < location.getxCoord()) {
+				x = actual.getWidth() - _sizeX;
+				personX = (int) (location.getxCoord() - x);
+			} else {
+				System.out.println("BLAHE");
+				x = (int) (location.getxCoord()-_sizeX/2);
+			}
+			if ((location.getyCoord() < _sizeY / 2)) {
+				personY = (int) location.getyCoord();
+				y = 0;
+			} else if ((actual.getHeight() - _sizeX / 2) < location.getyCoord()) {
+				y = actual.getHeight() - _sizeY;
+				personY = (int) (location.getyCoord() - y);
+			} else {
+				y=(int) (location.getyCoord()-_sizeY/2);
+			}
+		} else {
+			newComer.setUserId(name);
+			newComer.myTeam = affl;
+			newComer.setLocation(location);
+			newComer.setDirection(direction);
+			otherPlayers.add(newComer);
+		}
 	}
 
 	public void deathNewsArrived(String killer, String victim) {
@@ -180,14 +205,16 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	PanelTest() {
+
+		setBackground(Color.BLACK);
+		myUnit = new Marine();
+		myUnit.setUserId(JOptionPane.showInputDialog("Enter a username"));
 		try {
-			myClient = new JombieClient(this, "localhost");
+			myClient = new JombieClient(this, "localhost", myUnit.getUserId());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		setBackground(Color.BLACK);
-		myUnit = new Marine();
 		myLocation = new Vector() {
 			public double getxCoord() {
 				return x + personX;
@@ -199,8 +226,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		};
 		myUnit.setLocation(myLocation);
 		otherPlayers = new ArrayList<>();
-		
-		 
 		healthBar = new HealthBar(myUnit);
 		_gunSize = ((RangedWeapon) myUnit.myWeapon).getRadius();
 		_meRadius = myUnit.getSize();
@@ -237,6 +262,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				me.setxCoord(personX);
 				me.setyCoord(personY);
 				weaponAngle = me.findAngle(mousePoint);
+
 				ArrayList<Projectile> toKill = new ArrayList<Projectile>();
 				for (Projectile proj : projectiles) {
 					proj.updatePosition();
@@ -310,12 +336,12 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			}
 			moveAStep(dirUp);
 			moveAStep(dirLeft);
-			if(dirUp!= -1 || dirLeft !=-2 ){
-				if(myUnit.direction==null)
-				myClient.sendCoords(myUnit.location, myUnit.location, true);
-			}
+				if (myUnit.direction == null)
+					myClient.sendCoords(myUnit.location, myUnit.location, true);
+				else
+					myClient.sendCoords(myUnit.location, myUnit.direction, true);
 		}
-		
+
 	}
 
 	private void moveAStep(Integer next) {
@@ -426,9 +452,10 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.setColor(Color.WHITE);
 		g.drawImage(plane, 0, 0, _sizeX, _sizeY, x, y, x + _sizeX, y + _sizeY,
 				this);
-		g.setColor(myUnit.myTeam==Unit.Team.TEAM_A?Color.GREEN:Color.ORANGE);
-		g.fillOval(personX - myUnit.getSize() / 2, personY - myUnit.getSize() / 2, myUnit.getSize(),
-				myUnit.getSize());
+		g.setColor(myUnit.myTeam == Unit.Team.TEAM_A ? Color.GREEN
+				: Color.ORANGE);
+		g.fillOval(personX - myUnit.getSize() / 2, personY - myUnit.getSize()
+				/ 2, myUnit.getSize(), myUnit.getSize());
 		int gunX = (int) (_gunRadius * Math.cos(weaponAngle));
 		int gunY = (int) (_gunRadius * Math.sin(weaponAngle));
 		g.setColor(Color.RED);
@@ -441,21 +468,30 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			g.setColor(Color.BLACK);
 		}
 		g.drawString(myUnit.userId, personX + gunX + 10, personY - gunY - 10);
-		
+
 		for (Unit ut : otherPlayers) {
-			g.setColor(ut.myTeam==Unit.Team.TEAM_A?Color.GREEN:Color.ORANGE);
+			g.setColor(ut.myTeam == Unit.Team.TEAM_A ? Color.GREEN
+					: Color.ORANGE);
 			Vector pos = ut.getLocation();
-//			System.out.println(pos);
+			// System.out.println(pos);
 			if (pos.getxCoord() < x + _sizeX && pos.getxCoord() > x
 					&& pos.getyCoord() < y + _sizeY && pos.getyCoord() > y) {
 				g.fillOval((int) pos.getxCoord() - x,
-						(int) pos.getyCoord() - y, ut.getSize(),
-						ut.getSize());
+						(int) pos.getyCoord() - y, ut.getSize(), ut.getSize());
 				g.setColor(Color.RED);
-				g.drawString(myUnit.userId, (int)pos.getxCoord() - x, (int) pos.getyCoord() - y);
+				g.drawString(myUnit.userId, (int) pos.getxCoord() - x,
+						(int) pos.getyCoord() - y);
+
+				int gunXT = (int) (ut.getSize() * Math.cos(weaponAngle));
+				int gunYT = (int) (ut.getSize() * Math.sin(weaponAngle));
+				g.setColor(Color.RED);
+				/*
+				 * g.fillOval(ut.getLocation().getxCoord() - x + gunXT -
+				 * _gunSize / 2, ut.getLocation().getyCoord() - gunYT - _gunSize
+				 * / 2, _gunSize, _gunSize);
+				 */
 			}
 		}
-
 
 		for (Projectile proj : projectiles) {
 			g.setColor(Color.BLUE);
@@ -524,7 +560,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			pos.addScalarVector(direction, _meRadius / 2 + _gunRadius / 2);
 			s.setPosition(pos);
 			s.setDirection(direction);
-			myClient.sendShoot(direction, pos);
+			// myClient.sendShoot(direction, pos);
 			projectiles.add(s);
 		}
 	}

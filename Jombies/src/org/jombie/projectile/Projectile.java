@@ -7,7 +7,10 @@ public abstract class Projectile {
 	int speed;
 	int radius;
 	int damage;
+	public static int projectileId = 0;
+	public int id;
 	Unit owner;
+	
 	public Unit getOwner() {
 		return owner;
 	}

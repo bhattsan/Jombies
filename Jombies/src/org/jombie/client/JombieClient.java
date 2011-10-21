@@ -27,7 +27,7 @@ public class JombieClient implements Runnable{
 	private BufferedReader fromServer;
 	private PrintWriter toServer;
 	private PanelTest theView;
-	public JombieClient(PanelTest theView, String server) throws UnknownHostException, IOException {
+	public JombieClient(PanelTest theView, String server, String string) throws UnknownHostException, IOException {
 		Socket theServer = new Socket ( server, Protocol.PORT_NUMBER);
 		this.theView = theView;
 		fromServer = new BufferedReader(new InputStreamReader(theServer.getInputStream()));
@@ -38,9 +38,8 @@ public class JombieClient implements Runnable{
 			return;
 		}
 		toServer.println(Protocol.CLIENT_HI);
-		String userName =JOptionPane.showInputDialog("HERP DERP");
-	
-		toServer.println(userName);
+		
+		toServer.println(string);
 		System.out.println(fromServer.readLine());
 		System.out.println(fromServer.readLine());
 		Thread t = new Thread(this);
@@ -126,9 +125,13 @@ public class JombieClient implements Runnable{
 			Vector location = new Vector();
 			location.setxCoord(serverMess.getNew().getX());
 			location.setyCoord(serverMess.getNew().getY());
+			Vector direction = new Vector();
+			direction.setxCoord(serverMess.getNew().getDirX());
+			direction.setyCoord(serverMess.getNew().getDirY());
+			
 			theView.newComerArrived(serverMess.getNew().getName(), 
 					serverMess.getNew().getTeam() == Team.A ? Unit.Team.TEAM_A : Unit.Team.TEAM_B
-							, new Marine(), location);
+							, new Marine(), location, direction);
 		}
 	}
 }
