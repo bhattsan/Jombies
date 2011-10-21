@@ -62,7 +62,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
 	BufferedImage plane;
-
+	BufferedImage actual;
 	double weaponAngle = 0;
 
 	byte direction = 0; // 0 -down, 1-right, 2-up, 3-left
@@ -74,12 +74,13 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		ImageIcon ii = null;
 		try {
 			ii = new ImageIcon(ImageIO.read(new File(craft1)));
+			actual = ImageIO.read(new File(craft1));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		plane = (BufferedImage) ii.getImage();
-
+		
 		setDoubleBuffered(true);
 		setFocusable(true);
 		Timer s = new Timer(1, new ActionListener() {
@@ -155,31 +156,55 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public boolean isFocusTraversable() {
 		return true;
 	}
-
+	
+	public boolean compareColors ( int first, int second){
+		first = first & 0xFFFFFF;
+		second = second & 0xFFFFFF;
+		return first == second;
+	}
+	public boolean isValidSpace( int x, int y, int radius){
+		for(int i=x; i<x+radius; i++){
+			if(i<actual.getWidth()){
+				for(int j=y; j<y+radius; j++){
+					if(j<actual.getHeight()){
+						if(actual.getRGB(i, j)== Color.black.getRGB())
+							return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
 	private void moveLeft() {
 		if((x==0 && personX> _meRadius/2) || 
 				(x+getWidth() == plane.getWidth() && personX >_sizeX/2)){
-			personX--;
+			if(isValidSpace(x+personX-1-_meRadius/2, y+personY-_meRadius/2 , _meRadius)) 
+				personX--;
 		} else if (x>0){
-			x--;
+			if(isValidSpace(x+personX-1-_meRadius/2, y+personY-_meRadius/2 , _meRadius)) 
+				x--;
 		}
 	}
 
 	private void moveUp() {
 		if((y==0 && personY> _meRadius/2) || 
 				(y+getHeight() == plane.getHeight() && personY >_sizeY/2)){
-			personY--;
+			if(isValidSpace(x+personX-_meRadius/2, y+personY-_meRadius/2-1 , _meRadius)) 
+				personY--;
 		} else if (y>0){
-			y--;
+			if(isValidSpace(x+personX-_meRadius/2, y+personY-_meRadius/2-1 , _meRadius)) 
+				y--;
 		}
 	}
 
 	private void moveRight() {
 		if((x==0 && personX< (_sizeY/2)) || 
 				(x+getWidth() == plane.getWidth() && personX + _meRadius/2<getWidth())){
-			personX++;
+			if(isValidSpace(x+personX+1-_meRadius/2, y+personY-_meRadius/2 , _meRadius))
+				personX++;
 		} else if (x+getWidth()<plane.getWidth()){
-			x++;
+			if(isValidSpace(x+personX+1-_meRadius/2, y+personY-_meRadius/2 , _meRadius)) 
+				x++;
 		}
 	}
 
@@ -187,11 +212,9 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		if((y==0 && personY< _sizeY/2) || 
 				(y+getHeight() == plane.getHeight() && 
 				y+ personY + _meRadius/2 < plane.getHeight())){
-			System.out.println("sane1 "+personY+","+y+","+plane.getHeight());
-			personY++;
+			if(isValidSpace(x+personX-_meRadius/2, y+personY +1-_meRadius/2 , _meRadius)) personY++;
 		} else if (y+getHeight()<plane.getHeight()){
-			System.out.println("sane2 "+y);
-			y++;
+			if(isValidSpace(x+personX-_meRadius/2, y+personY +1-_meRadius/2 , _meRadius)) y++;
 		}
 	}
 
@@ -236,7 +259,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public void mouseMoved(MouseEvent mouseHitPoint) {
 		int xHit = mouseHitPoint.getX();
 		int yHit = mouseHitPoint.getY();
-		System.out.printf("(%d, %d)\t", xHit, yHit);
 		xHit = xHit - personX;
 		yHit = personY - yHit;
 		if (xHit == 0) {
@@ -247,6 +269,5 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				weaponAngle+=Math.PI;
 			}
 		}
-		System.out.println(weaponAngle);
 	}
 }
