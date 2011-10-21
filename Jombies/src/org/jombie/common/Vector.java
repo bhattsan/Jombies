@@ -23,7 +23,6 @@ public class Vector {
 		int xHit = other.xCoord;
 		int yHit = other.yCoord;
 		double angle;
-		System.out.printf("(%d, %d)\t", xHit, yHit);
 		int dX, dY;
 		dX = xHit - xCoord;
 		dY = yCoord - yHit;
@@ -51,5 +50,14 @@ public class Vector {
 			}
 		}
 		return angle;
+	}
+	
+	public void addScalarVector(Vector direction, int speed){
+		setxCoord((int)(xCoord+speed*Math.cos(direction.findAngle())));
+		setyCoord((int)(yCoord-speed*Math.sin(direction.findAngle())));
+	}
+	@Override
+	public String toString() {
+		return xCoord+","+yCoord;
 	}
 }

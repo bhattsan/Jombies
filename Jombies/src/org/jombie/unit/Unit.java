@@ -10,5 +10,6 @@ public abstract class Unit {
 	int speed;
 	Vector direction;
 	Weapon myWeapon;
+	enum team{TEAM_A, TEAM_B};
 	public abstract boolean attackPosition(Vector targetPosition);
 }
