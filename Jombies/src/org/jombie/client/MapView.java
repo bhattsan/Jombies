@@ -1,3 +1,4 @@
+package org.jombie.client;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -17,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,7 +30,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import org.jombie.client.JombieClient;
 import org.jombie.common.Vector;
 import org.jombie.projectile.Projectile;
 import org.jombie.unit.Unit;
@@ -47,7 +48,7 @@ public class MapView extends JFrame {
 		GridLayout gridL = new GridLayout(2, 1);
 		setLayout(new GridLayout(2, 1));
 		setBackground(Color.WHITE);
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Game");
@@ -165,9 +166,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public void projectilesSpawned(Vector location, Vector direction,
 			String owner) {
 		Unit ut = findUnit(owner);
+		System.out.println("got into mapview");
 		Projectile spawned = ((RangedWeapon) ut.myWeapon).getBullet();
 		spawned.setPosition(location);
 		spawned.setDirection(direction);
+		projectiles.add(spawned);
 	}
 
 	public void getInfo(String user, Vector location, Vector direction) {
@@ -177,7 +180,12 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	PanelTest() {
-
+		try {
+			myClient = new JombieClient(this, "localhost");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		setBackground(Color.BLACK);
 		myUnit = new Marine();
 		myLocation = new Vector() {
@@ -192,14 +200,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		myUnit.setLocation(myLocation);
 		otherPlayers = new ArrayList<>();
 		
-		  for(int i=0; i<3; i++){ 
-			  Marine enemy = new Marine(); 
-			  Vector loc = new Vector();
-			  loc.setxCoord(1560+60*i);
-			  loc.setyCoord(1200);
-			  newComerArrived("EVIL"+i, Unit.Team.TEAM_B, enemy, loc);
-//			  System.out.println("New comer??");
-		  }
 		 
 		healthBar = new HealthBar(myUnit);
 		_gunSize = ((RangedWeapon) myUnit.myWeapon).getRadius();
@@ -310,7 +310,12 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			}
 			moveAStep(dirUp);
 			moveAStep(dirLeft);
+			if(dirUp!= -1 || dirLeft !=-2 ){
+				if(myUnit.direction==null)
+				myClient.sendCoords(myUnit.location, myUnit.location, true);
+			}
 		}
+		
 	}
 
 	private void moveAStep(Integer next) {
@@ -443,7 +448,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 //			System.out.println(pos);
 			if (pos.getxCoord() < x + _sizeX && pos.getxCoord() > x
 					&& pos.getyCoord() < y + _sizeY && pos.getyCoord() > y) {
-				System.out.println("HI");
 				g.fillOval((int) pos.getxCoord() - x,
 						(int) pos.getyCoord() - y, ut.getSize(),
 						ut.getSize());

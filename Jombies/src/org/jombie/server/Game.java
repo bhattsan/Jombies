@@ -1,5 +1,6 @@
 package org.jombie.server;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -10,6 +11,10 @@ import org.jombie.server.Messages.ServerMessage;
 import org.jombie.server.Messages.ServerMessage.DeathNews;
 import org.jombie.server.Messages.ServerMessage.Info;
 import org.jombie.server.Messages.ServerMessage.Projectile;
+import org.jombie.server.Messages.ServerMessage.Projectile.Type;
+import org.jombie.server.Messages.ServerMessage.UnitType;
+import org.jombie.server.Messages.ServerMessage.newComer;
+import org.jombie.server.Messages.ServerMessage.newComer.Team;
 import org.jombie.unit.marines.Marine;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -19,8 +24,8 @@ public class Game implements Runnable {
 	private int gameSecs;
 	private int currSec;
 	private HashMap<String, Client> clientMap;
-	private ArrayList<Client> teamA;
-	private ArrayList<Client> teamB;
+	private ArrayList<String> teamA;
+	private ArrayList<String> teamB;
 	private ArrayList<Client> clients;
 	private ConcurrentLinkedQueue<String> msgQueue;
 	private ConcurrentLinkedQueue<String> broadCastQueue;
@@ -32,6 +37,7 @@ public class Game implements Runnable {
 		clientMap = new HashMap<>();
 		clients = new ArrayList<>();
 		msgQueue = new ConcurrentLinkedQueue<>();
+		broadCastQueue = new ConcurrentLinkedQueue<>();
 		gameSecs = mins * 60;
 		currSec = 0;
 //		try { :'(
@@ -46,10 +52,10 @@ public class Game implements Runnable {
 		toAdd.setUnit(new Marine());
 		toAdd.sendMessage(gameID);
 		if(teamA.size() > teamB.size()){
-			teamB.add(toAdd);
+			teamB.add(toAdd.getUserName());
 			return 2;
 		}else {
-			teamA.add(toAdd);
+			teamA.add(toAdd.getUserName());
 			return 1;
 		}
 	}
@@ -71,6 +77,7 @@ public class Game implements Runnable {
 			
 			currClient.sendMessage(Protocol.GAME_START);
 		}
+		sendNewComers();
 		while (currSec < gameSecs) {
 			parseMessages();
 			inThisSec += delay;
@@ -90,8 +97,43 @@ public class Game implements Runnable {
 	}
 
 	
+	private void sendNewComers() {
+		for(Client currClient : clients){
+			ServerMessage.Builder build = ServerMessage.newBuilder();
+			newComer.Builder newC = newComer.newBuilder();
+			newC.setTeam(teamA.contains(currClient.getUserName()) ? Team.A : Team.B);
+			newC.setName(currClient.getUserName());
+			newC.setType(UnitType.Marine);
+			if(teamA.contains(currClient.getUserName())){
+					newC.setX((int) (Math.random()*350+20));
+					newC.setY((int) (Math.random()*300+20));
+			} else {
+				newC.setX((int) (Math.random()*600+1300));
+				newC.setY((int) (Math.random()*500+950));
+			}
+			newC.setDirX(0);
+			newC.setDirY(0);
+			build.setNew(newC);
+			String mess = new BigInteger(build.build().toByteArray()).toString(16);
+			for(Client curr : clients){
+				if(!curr.getUserName().equals(currClient.getUserName())){
+					curr.sendMessage(mess);
+					System.out.println("sent a message");
+				}
+			}
+				
+		}
+	}
 	private void sendToBroadCast() {
 		for(String message : broadCastQueue){
+			System.out.println("Writing" + message);
+			BigInteger bi = new BigInteger(message,16);
+			try {
+				ServerMessage.parseFrom(bi.toByteArray());
+			} catch (InvalidProtocolBufferException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			for(Client currClient : clients){
 				currClient.sendMessage(message);
 			}
@@ -105,14 +147,15 @@ public class Game implements Runnable {
 			String message = parse.substring(parse.indexOf(':')+1);
 			Client theClient = clientMap.get(user);
 			if(theClient == null) continue;
-			String protoMess = message.substring(message.indexOf(':')+1);
-			int length = Integer.parseInt(message.substring(0, message.indexOf(':')));
 			ClientMessage theMessage = null;
+			BigInteger bi = new BigInteger(message, 16);
+			byte [] data = bi.toByteArray();
 			try {
-				theMessage = ClientMessage.parseFrom(protoMess.substring(0,length).getBytes());
+				theMessage = ClientMessage.parseFrom(data);
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
+			System.out.println("got here");
 			if(theMessage.hasChDir()){
 				System.out.println("YEP");
 				Location dir = theMessage.getChDir(); 
@@ -127,13 +170,12 @@ public class Game implements Runnable {
 				infoB.setY((int) theClient.getPos().getyCoord());
 				infoB.setHandX((int) theClient.getDir().getxCoord());
 				infoB.setHandY((int) theClient.getDir().getyCoord());
+				infoB.setUser(theClient.getUserName());
 				serverB.setInfo(infoB);
-				String mess = serverB.build().toByteString().toStringUtf8();
-				broadCastQueue.add(mess.length()+":"+mess);
+				broadCastQueue.add(new BigInteger(serverB.build().toByteArray()).toString(16));
 				
 				System.out.println(user+","+theClient.getCurrPosX()+ " "+ theClient.getCurrPosY());
 			} else if (theMessage.hasDeath()){
-				//shoot shit
 				String killer = theMessage.getDeath().getKiller();
 				String victim = theClient.getUserName();
 				
@@ -143,8 +185,7 @@ public class Game implements Runnable {
 				newB.setVictim(victim);
 				death.setDeath(newB);
 				
-				String mess = death.build().toByteString().toStringUtf8();
-				broadCastQueue.add(mess.length()+":"+mess);
+				broadCastQueue.add(new BigInteger(death.build().toByteArray()).toString(16));
 				
 				System.out.println("DEATH!");
 			} else if (theMessage.hasShootDie()){
@@ -154,10 +195,11 @@ public class Game implements Runnable {
 				shoot.setY(theMessage.getShootDie().getY());
 				shoot.setDirX(theMessage.getShootDie().getDirX());
 				shoot.setDirY(theMessage.getShootDie().getDirY());
+				shoot.setType(Type.PistolBullet);
+				shoot.setOwner(theClient.getUserName());
 				newShoot.setProj(shoot);
 				
-				String mess = newShoot.build().toByteString().toStringUtf8();
-				broadCastQueue.add(mess.length()+":"+mess);
+				broadCastQueue.add(new BigInteger(newShoot.build().toByteArray()).toString(16));
 				
 			} 
 		}

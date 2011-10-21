@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.net.Socket;
 
 import org.jombie.common.Vector;
+import org.jombie.server.Messages.ServerMessage;
 import org.jombie.unit.Unit;
 
 public class Client {
@@ -58,10 +60,10 @@ public class Client {
 	public void recieveLoop() {
 		try {
 			String message = fromClient.readLine();
+			
 			if(message.equals(Protocol.CLIENT_BYE)) connected = false;
-			theGame.parse(this, message);
+			theGame.parse(this,message);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			connected = false;
 			return;
 		}

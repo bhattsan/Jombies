@@ -2355,11 +2355,7 @@ public final class Messages {
       boolean hasHandY();
       int getHandY();
       
-      // required .org.jombie.server.ServerMessage.UnitType type = 5;
-      boolean hasType();
-      org.jombie.server.Messages.ServerMessage.UnitType getType();
-      
-      // required string user = 6;
+      // required string user = 5;
       boolean hasUser();
       String getUser();
     }
@@ -2432,21 +2428,11 @@ public final class Messages {
         return handY_;
       }
       
-      // required .org.jombie.server.ServerMessage.UnitType type = 5;
-      public static final int TYPE_FIELD_NUMBER = 5;
-      private org.jombie.server.Messages.ServerMessage.UnitType type_;
-      public boolean hasType() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
-      public org.jombie.server.Messages.ServerMessage.UnitType getType() {
-        return type_;
-      }
-      
-      // required string user = 6;
-      public static final int USER_FIELD_NUMBER = 6;
+      // required string user = 5;
+      public static final int USER_FIELD_NUMBER = 5;
       private java.lang.Object user_;
       public boolean hasUser() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public String getUser() {
         java.lang.Object ref = user_;
@@ -2479,7 +2465,6 @@ public final class Messages {
         y_ = 0;
         handX_ = 0;
         handY_ = 0;
-        type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
         user_ = "";
       }
       private byte memoizedIsInitialized = -1;
@@ -2500,10 +2485,6 @@ public final class Messages {
           return false;
         }
         if (!hasHandY()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasType()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -2531,10 +2512,7 @@ public final class Messages {
           output.writeInt32(4, handY_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          output.writeEnum(5, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          output.writeBytes(6, getUserBytes());
+          output.writeBytes(5, getUserBytes());
         }
         getUnknownFields().writeTo(output);
       }
@@ -2563,11 +2541,7 @@ public final class Messages {
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(5, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(6, getUserBytes());
+            .computeBytesSize(5, getUserBytes());
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -2701,10 +2675,8 @@ public final class Messages {
           bitField0_ = (bitField0_ & ~0x00000004);
           handY_ = 0;
           bitField0_ = (bitField0_ & ~0x00000008);
-          type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
-          bitField0_ = (bitField0_ & ~0x00000010);
           user_ = "";
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
           return this;
         }
         
@@ -2762,10 +2734,6 @@ public final class Messages {
           if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
             to_bitField0_ |= 0x00000010;
           }
-          result.type_ = type_;
-          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-            to_bitField0_ |= 0x00000020;
-          }
           result.user_ = user_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
@@ -2795,9 +2763,6 @@ public final class Messages {
           if (other.hasHandY()) {
             setHandY(other.getHandY());
           }
-          if (other.hasType()) {
-            setType(other.getType());
-          }
           if (other.hasUser()) {
             setUser(other.getUser());
           }
@@ -2819,10 +2784,6 @@ public final class Messages {
             return false;
           }
           if (!hasHandY()) {
-            
-            return false;
-          }
-          if (!hasType()) {
             
             return false;
           }
@@ -2876,19 +2837,8 @@ public final class Messages {
                 handY_ = input.readInt32();
                 break;
               }
-              case 40: {
-                int rawValue = input.readEnum();
-                org.jombie.server.Messages.ServerMessage.UnitType value = org.jombie.server.Messages.ServerMessage.UnitType.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(5, rawValue);
-                } else {
-                  bitField0_ |= 0x00000010;
-                  type_ = value;
-                }
-                break;
-              }
-              case 50: {
-                bitField0_ |= 0x00000020;
+              case 42: {
+                bitField0_ |= 0x00000010;
                 user_ = input.readBytes();
                 break;
               }
@@ -2982,34 +2932,10 @@ public final class Messages {
           return this;
         }
         
-        // required .org.jombie.server.ServerMessage.UnitType type = 5;
-        private org.jombie.server.Messages.ServerMessage.UnitType type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
-        public boolean hasType() {
-          return ((bitField0_ & 0x00000010) == 0x00000010);
-        }
-        public org.jombie.server.Messages.ServerMessage.UnitType getType() {
-          return type_;
-        }
-        public Builder setType(org.jombie.server.Messages.ServerMessage.UnitType value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          bitField0_ |= 0x00000010;
-          type_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearType() {
-          bitField0_ = (bitField0_ & ~0x00000010);
-          type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
-          onChanged();
-          return this;
-        }
-        
-        // required string user = 6;
+        // required string user = 5;
         private java.lang.Object user_ = "";
         public boolean hasUser() {
-          return ((bitField0_ & 0x00000020) == 0x00000020);
+          return ((bitField0_ & 0x00000010) == 0x00000010);
         }
         public String getUser() {
           java.lang.Object ref = user_;
@@ -3025,19 +2951,19 @@ public final class Messages {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000020;
+  bitField0_ |= 0x00000010;
           user_ = value;
           onChanged();
           return this;
         }
         public Builder clearUser() {
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
           user_ = getDefaultInstance().getUser();
           onChanged();
           return this;
         }
         void setUser(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
           user_ = value;
           onChanged();
         }
@@ -6094,27 +6020,26 @@ public final class Messages {
       "dX\030\001 \002(\005\022\n\n\002dy\030\002 \002(\005\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002" +
       "(\005\0329\n\005Shoot\022\t\n\001X\030\001 \002(\005\022\t\n\001Y\030\002 \002(\005\022\014\n\004dir" +
       "X\030\003 \002(\005\022\014\n\004dirY\030\004 \002(\005\032\027\n\005Death\022\016\n\006killer" +
-      "\030\001 \002(\t\"\277\006\n\rServerMessage\0226\n\003new\030\001 \001(\0132).",
+      "\030\001 \002(\t\"\205\006\n\rServerMessage\0226\n\003new\030\001 \001(\0132).",
       "org.jombie.server.ServerMessage.newComer" +
       "\0229\n\004proj\030\002 \001(\0132+.org.jombie.server.Serve" +
       "rMessage.Projectile\0229\n\005death\030\003 \001(\0132*.org" +
       ".jombie.server.ServerMessage.DeathNews\0223" +
       "\n\004info\030\004 \001(\0132%.org.jombie.server.ServerM" +
-      "essage.Info\032\201\001\n\004Info\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002" +
-      "(\005\022\r\n\005handX\030\003 \002(\005\022\r\n\005handY\030\004 \002(\005\0227\n\004type" +
-      "\030\005 \002(\0162).org.jombie.server.ServerMessage" +
-      ".UnitType\022\014\n\004user\030\006 \002(\t\032+\n\tDeathNews\022\016\n\006" +
-      "victim\030\001 \002(\t\022\016\n\006killer\030\002 \002(\t\032\247\001\n\nProject",
-      "ile\022>\n\004type\030\001 \002(\01620.org.jombie.server.Se" +
-      "rverMessage.Projectile.Type\022\r\n\005owner\030\002 \002" +
-      "(\t\022\t\n\001X\030\003 \002(\005\022\t\n\001Y\030\004 \002(\005\022\014\n\004dirX\030\005 \002(\005\022\014" +
-      "\n\004dirY\030\006 \002(\005\"\030\n\004Type\022\020\n\014PistolBullet\020\001\032\327" +
-      "\001\n\010newComer\022<\n\004team\030\001 \002(\0162..org.jombie.s" +
-      "erver.ServerMessage.newComer.Team\022\014\n\004nam" +
-      "e\030\002 \002(\t\0227\n\004type\030\003 \002(\0162).org.jombie.serve" +
-      "r.ServerMessage.UnitType\022\t\n\001x\030\004 \002(\005\022\t\n\001y" +
-      "\030\005 \002(\005\022\014\n\004dirX\030\007 \002(\005\022\014\n\004dirY\030\010 \002(\005\"\024\n\004Te" +
-      "am\022\005\n\001A\020\001\022\005\n\001B\020\002\"\026\n\010UnitType\022\n\n\006Marine\020\001"
+      "essage.Info\032H\n\004Info\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(" +
+      "\005\022\r\n\005handX\030\003 \002(\005\022\r\n\005handY\030\004 \002(\005\022\014\n\004user\030" +
+      "\005 \002(\t\032+\n\tDeathNews\022\016\n\006victim\030\001 \002(\t\022\016\n\006ki" +
+      "ller\030\002 \002(\t\032\247\001\n\nProjectile\022>\n\004type\030\001 \002(\0162" +
+      "0.org.jombie.server.ServerMessage.Projec",
+      "tile.Type\022\r\n\005owner\030\002 \002(\t\022\t\n\001X\030\003 \002(\005\022\t\n\001Y" +
+      "\030\004 \002(\005\022\014\n\004dirX\030\005 \002(\005\022\014\n\004dirY\030\006 \002(\005\"\030\n\004Ty" +
+      "pe\022\020\n\014PistolBullet\020\001\032\327\001\n\010newComer\022<\n\004tea" +
+      "m\030\001 \002(\0162..org.jombie.server.ServerMessag" +
+      "e.newComer.Team\022\014\n\004name\030\002 \002(\t\0227\n\004type\030\003 " +
+      "\002(\0162).org.jombie.server.ServerMessage.Un" +
+      "itType\022\t\n\001x\030\004 \002(\005\022\t\n\001y\030\005 \002(\005\022\014\n\004dirX\030\007 \002" +
+      "(\005\022\014\n\004dirY\030\010 \002(\005\"\024\n\004Team\022\005\n\001A\020\001\022\005\n\001B\020\002\"\026" +
+      "\n\010UnitType\022\n\n\006Marine\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6166,7 +6091,7 @@ public final class Messages {
           internal_static_org_jombie_server_ServerMessage_Info_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_org_jombie_server_ServerMessage_Info_descriptor,
-              new java.lang.String[] { "X", "Y", "HandX", "HandY", "Type", "User", },
+              new java.lang.String[] { "X", "Y", "HandX", "HandY", "User", },
               org.jombie.server.Messages.ServerMessage.Info.class,
               org.jombie.server.Messages.ServerMessage.Info.Builder.class);
           internal_static_org_jombie_server_ServerMessage_DeathNews_descriptor =
