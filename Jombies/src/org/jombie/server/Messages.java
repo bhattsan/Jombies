@@ -57,21 +57,21 @@ public final class Messages {
     public interface LocationOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required int32 dX = 1;
+      // required double dX = 1;
       boolean hasDX();
-      int getDX();
+      double getDX();
       
-      // required int32 dy = 2;
+      // required double dy = 2;
       boolean hasDy();
-      int getDy();
+      double getDy();
       
-      // required int32 x = 3;
+      // required double x = 3;
       boolean hasX();
-      int getX();
+      double getX();
       
-      // required int32 y = 4;
+      // required double y = 4;
       boolean hasY();
-      int getY();
+      double getY();
     }
     public static final class Location extends
         com.google.protobuf.GeneratedMessage
@@ -102,51 +102,51 @@ public final class Messages {
       }
       
       private int bitField0_;
-      // required int32 dX = 1;
+      // required double dX = 1;
       public static final int DX_FIELD_NUMBER = 1;
-      private int dX_;
+      private double dX_;
       public boolean hasDX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getDX() {
+      public double getDX() {
         return dX_;
       }
       
-      // required int32 dy = 2;
+      // required double dy = 2;
       public static final int DY_FIELD_NUMBER = 2;
-      private int dy_;
+      private double dy_;
       public boolean hasDy() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getDy() {
+      public double getDy() {
         return dy_;
       }
       
-      // required int32 x = 3;
+      // required double x = 3;
       public static final int X_FIELD_NUMBER = 3;
-      private int x_;
+      private double x_;
       public boolean hasX() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getX() {
+      public double getX() {
         return x_;
       }
       
-      // required int32 y = 4;
+      // required double y = 4;
       public static final int Y_FIELD_NUMBER = 4;
-      private int y_;
+      private double y_;
       public boolean hasY() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getY() {
+      public double getY() {
         return y_;
       }
       
       private void initFields() {
-        dX_ = 0;
-        dy_ = 0;
-        x_ = 0;
-        y_ = 0;
+        dX_ = 0D;
+        dy_ = 0D;
+        x_ = 0D;
+        y_ = 0D;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -177,16 +177,16 @@ public final class Messages {
                           throws java.io.IOException {
         getSerializedSize();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeInt32(1, dX_);
+          output.writeDouble(1, dX_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(2, dy_);
+          output.writeDouble(2, dy_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(3, x_);
+          output.writeDouble(3, x_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(4, y_);
+          output.writeDouble(4, y_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -199,19 +199,19 @@ public final class Messages {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(1, dX_);
+            .computeDoubleSize(1, dX_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(2, dy_);
+            .computeDoubleSize(2, dy_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, x_);
+            .computeDoubleSize(3, x_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, y_);
+            .computeDoubleSize(4, y_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -337,13 +337,13 @@ public final class Messages {
         
         public Builder clear() {
           super.clear();
-          dX_ = 0;
+          dX_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000001);
-          dy_ = 0;
+          dy_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000002);
-          x_ = 0;
+          x_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000004);
-          y_ = 0;
+          y_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000008);
           return this;
         }
@@ -474,24 +474,24 @@ public final class Messages {
                 }
                 break;
               }
-              case 8: {
+              case 9: {
                 bitField0_ |= 0x00000001;
-                dX_ = input.readInt32();
+                dX_ = input.readDouble();
                 break;
               }
-              case 16: {
+              case 17: {
                 bitField0_ |= 0x00000002;
-                dy_ = input.readInt32();
+                dy_ = input.readDouble();
                 break;
               }
-              case 24: {
+              case 25: {
                 bitField0_ |= 0x00000004;
-                x_ = input.readInt32();
+                x_ = input.readDouble();
                 break;
               }
-              case 32: {
+              case 33: {
                 bitField0_ |= 0x00000008;
-                y_ = input.readInt32();
+                y_ = input.readDouble();
                 break;
               }
             }
@@ -500,15 +500,15 @@ public final class Messages {
         
         private int bitField0_;
         
-        // required int32 dX = 1;
-        private int dX_ ;
+        // required double dX = 1;
+        private double dX_ ;
         public boolean hasDX() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public int getDX() {
+        public double getDX() {
           return dX_;
         }
-        public Builder setDX(int value) {
+        public Builder setDX(double value) {
           bitField0_ |= 0x00000001;
           dX_ = value;
           onChanged();
@@ -516,20 +516,20 @@ public final class Messages {
         }
         public Builder clearDX() {
           bitField0_ = (bitField0_ & ~0x00000001);
-          dX_ = 0;
+          dX_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dy = 2;
-        private int dy_ ;
+        // required double dy = 2;
+        private double dy_ ;
         public boolean hasDy() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        public int getDy() {
+        public double getDy() {
           return dy_;
         }
-        public Builder setDy(int value) {
+        public Builder setDy(double value) {
           bitField0_ |= 0x00000002;
           dy_ = value;
           onChanged();
@@ -537,20 +537,20 @@ public final class Messages {
         }
         public Builder clearDy() {
           bitField0_ = (bitField0_ & ~0x00000002);
-          dy_ = 0;
+          dy_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 x = 3;
-        private int x_ ;
+        // required double x = 3;
+        private double x_ ;
         public boolean hasX() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public int getX() {
+        public double getX() {
           return x_;
         }
-        public Builder setX(int value) {
+        public Builder setX(double value) {
           bitField0_ |= 0x00000004;
           x_ = value;
           onChanged();
@@ -558,20 +558,20 @@ public final class Messages {
         }
         public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000004);
-          x_ = 0;
+          x_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 y = 4;
-        private int y_ ;
+        // required double y = 4;
+        private double y_ ;
         public boolean hasY() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
-        public int getY() {
+        public double getY() {
           return y_;
         }
-        public Builder setY(int value) {
+        public Builder setY(double value) {
           bitField0_ |= 0x00000008;
           y_ = value;
           onChanged();
@@ -579,7 +579,7 @@ public final class Messages {
         }
         public Builder clearY() {
           bitField0_ = (bitField0_ & ~0x00000008);
-          y_ = 0;
+          y_ = 0D;
           onChanged();
           return this;
         }
@@ -598,21 +598,21 @@ public final class Messages {
     public interface ShootOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required int32 X = 1;
+      // required double X = 1;
       boolean hasX();
-      int getX();
+      double getX();
       
-      // required int32 Y = 2;
+      // required double Y = 2;
       boolean hasY();
-      int getY();
+      double getY();
       
-      // required int32 dirX = 3;
+      // required double dirX = 3;
       boolean hasDirX();
-      int getDirX();
+      double getDirX();
       
-      // required int32 dirY = 4;
+      // required double dirY = 4;
       boolean hasDirY();
-      int getDirY();
+      double getDirY();
     }
     public static final class Shoot extends
         com.google.protobuf.GeneratedMessage
@@ -643,51 +643,51 @@ public final class Messages {
       }
       
       private int bitField0_;
-      // required int32 X = 1;
+      // required double X = 1;
       public static final int X_FIELD_NUMBER = 1;
-      private int x_;
+      private double x_;
       public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getX() {
+      public double getX() {
         return x_;
       }
       
-      // required int32 Y = 2;
+      // required double Y = 2;
       public static final int Y_FIELD_NUMBER = 2;
-      private int y_;
+      private double y_;
       public boolean hasY() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getY() {
+      public double getY() {
         return y_;
       }
       
-      // required int32 dirX = 3;
+      // required double dirX = 3;
       public static final int DIRX_FIELD_NUMBER = 3;
-      private int dirX_;
+      private double dirX_;
       public boolean hasDirX() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getDirX() {
+      public double getDirX() {
         return dirX_;
       }
       
-      // required int32 dirY = 4;
+      // required double dirY = 4;
       public static final int DIRY_FIELD_NUMBER = 4;
-      private int dirY_;
+      private double dirY_;
       public boolean hasDirY() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getDirY() {
+      public double getDirY() {
         return dirY_;
       }
       
       private void initFields() {
-        x_ = 0;
-        y_ = 0;
-        dirX_ = 0;
-        dirY_ = 0;
+        x_ = 0D;
+        y_ = 0D;
+        dirX_ = 0D;
+        dirY_ = 0D;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -718,16 +718,16 @@ public final class Messages {
                           throws java.io.IOException {
         getSerializedSize();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeInt32(1, x_);
+          output.writeDouble(1, x_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(2, y_);
+          output.writeDouble(2, y_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(3, dirX_);
+          output.writeDouble(3, dirX_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(4, dirY_);
+          output.writeDouble(4, dirY_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -740,19 +740,19 @@ public final class Messages {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(1, x_);
+            .computeDoubleSize(1, x_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(2, y_);
+            .computeDoubleSize(2, y_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, dirX_);
+            .computeDoubleSize(3, dirX_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, dirY_);
+            .computeDoubleSize(4, dirY_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -878,13 +878,13 @@ public final class Messages {
         
         public Builder clear() {
           super.clear();
-          x_ = 0;
+          x_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000001);
-          y_ = 0;
+          y_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000002);
-          dirX_ = 0;
+          dirX_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000004);
-          dirY_ = 0;
+          dirY_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000008);
           return this;
         }
@@ -1015,24 +1015,24 @@ public final class Messages {
                 }
                 break;
               }
-              case 8: {
+              case 9: {
                 bitField0_ |= 0x00000001;
-                x_ = input.readInt32();
+                x_ = input.readDouble();
                 break;
               }
-              case 16: {
+              case 17: {
                 bitField0_ |= 0x00000002;
-                y_ = input.readInt32();
+                y_ = input.readDouble();
                 break;
               }
-              case 24: {
+              case 25: {
                 bitField0_ |= 0x00000004;
-                dirX_ = input.readInt32();
+                dirX_ = input.readDouble();
                 break;
               }
-              case 32: {
+              case 33: {
                 bitField0_ |= 0x00000008;
-                dirY_ = input.readInt32();
+                dirY_ = input.readDouble();
                 break;
               }
             }
@@ -1041,15 +1041,15 @@ public final class Messages {
         
         private int bitField0_;
         
-        // required int32 X = 1;
-        private int x_ ;
+        // required double X = 1;
+        private double x_ ;
         public boolean hasX() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public int getX() {
+        public double getX() {
           return x_;
         }
-        public Builder setX(int value) {
+        public Builder setX(double value) {
           bitField0_ |= 0x00000001;
           x_ = value;
           onChanged();
@@ -1057,20 +1057,20 @@ public final class Messages {
         }
         public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000001);
-          x_ = 0;
+          x_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 Y = 2;
-        private int y_ ;
+        // required double Y = 2;
+        private double y_ ;
         public boolean hasY() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        public int getY() {
+        public double getY() {
           return y_;
         }
-        public Builder setY(int value) {
+        public Builder setY(double value) {
           bitField0_ |= 0x00000002;
           y_ = value;
           onChanged();
@@ -1078,20 +1078,20 @@ public final class Messages {
         }
         public Builder clearY() {
           bitField0_ = (bitField0_ & ~0x00000002);
-          y_ = 0;
+          y_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dirX = 3;
-        private int dirX_ ;
+        // required double dirX = 3;
+        private double dirX_ ;
         public boolean hasDirX() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public int getDirX() {
+        public double getDirX() {
           return dirX_;
         }
-        public Builder setDirX(int value) {
+        public Builder setDirX(double value) {
           bitField0_ |= 0x00000004;
           dirX_ = value;
           onChanged();
@@ -1099,20 +1099,20 @@ public final class Messages {
         }
         public Builder clearDirX() {
           bitField0_ = (bitField0_ & ~0x00000004);
-          dirX_ = 0;
+          dirX_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dirY = 4;
-        private int dirY_ ;
+        // required double dirY = 4;
+        private double dirY_ ;
         public boolean hasDirY() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
-        public int getDirY() {
+        public double getDirY() {
           return dirY_;
         }
-        public Builder setDirY(int value) {
+        public Builder setDirY(double value) {
           bitField0_ |= 0x00000008;
           dirY_ = value;
           onChanged();
@@ -1120,7 +1120,7 @@ public final class Messages {
         }
         public Builder clearDirY() {
           bitField0_ = (bitField0_ & ~0x00000008);
-          dirY_ = 0;
+          dirY_ = 0D;
           onChanged();
           return this;
         }
@@ -2339,21 +2339,21 @@ public final class Messages {
     public interface InfoOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required int32 x = 1;
+      // required double x = 1;
       boolean hasX();
-      int getX();
+      double getX();
       
-      // required int32 y = 2;
+      // required double y = 2;
       boolean hasY();
-      int getY();
+      double getY();
       
-      // required int32 handX = 3;
+      // required double handX = 3;
       boolean hasHandX();
-      int getHandX();
+      double getHandX();
       
-      // required int32 handY = 4;
+      // required double handY = 4;
       boolean hasHandY();
-      int getHandY();
+      double getHandY();
       
       // required string user = 5;
       boolean hasUser();
@@ -2388,43 +2388,43 @@ public final class Messages {
       }
       
       private int bitField0_;
-      // required int32 x = 1;
+      // required double x = 1;
       public static final int X_FIELD_NUMBER = 1;
-      private int x_;
+      private double x_;
       public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public int getX() {
+      public double getX() {
         return x_;
       }
       
-      // required int32 y = 2;
+      // required double y = 2;
       public static final int Y_FIELD_NUMBER = 2;
-      private int y_;
+      private double y_;
       public boolean hasY() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getY() {
+      public double getY() {
         return y_;
       }
       
-      // required int32 handX = 3;
+      // required double handX = 3;
       public static final int HANDX_FIELD_NUMBER = 3;
-      private int handX_;
+      private double handX_;
       public boolean hasHandX() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getHandX() {
+      public double getHandX() {
         return handX_;
       }
       
-      // required int32 handY = 4;
+      // required double handY = 4;
       public static final int HANDY_FIELD_NUMBER = 4;
-      private int handY_;
+      private double handY_;
       public boolean hasHandY() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getHandY() {
+      public double getHandY() {
         return handY_;
       }
       
@@ -2461,10 +2461,10 @@ public final class Messages {
       }
       
       private void initFields() {
-        x_ = 0;
-        y_ = 0;
-        handX_ = 0;
-        handY_ = 0;
+        x_ = 0D;
+        y_ = 0D;
+        handX_ = 0D;
+        handY_ = 0D;
         user_ = "";
       }
       private byte memoizedIsInitialized = -1;
@@ -2500,16 +2500,16 @@ public final class Messages {
                           throws java.io.IOException {
         getSerializedSize();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeInt32(1, x_);
+          output.writeDouble(1, x_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(2, y_);
+          output.writeDouble(2, y_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(3, handX_);
+          output.writeDouble(3, handX_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(4, handY_);
+          output.writeDouble(4, handY_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
           output.writeBytes(5, getUserBytes());
@@ -2525,19 +2525,19 @@ public final class Messages {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(1, x_);
+            .computeDoubleSize(1, x_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(2, y_);
+            .computeDoubleSize(2, y_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, handX_);
+            .computeDoubleSize(3, handX_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, handY_);
+            .computeDoubleSize(4, handY_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
           size += com.google.protobuf.CodedOutputStream
@@ -2667,13 +2667,13 @@ public final class Messages {
         
         public Builder clear() {
           super.clear();
-          x_ = 0;
+          x_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000001);
-          y_ = 0;
+          y_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000002);
-          handX_ = 0;
+          handX_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000004);
-          handY_ = 0;
+          handY_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000008);
           user_ = "";
           bitField0_ = (bitField0_ & ~0x00000010);
@@ -2817,24 +2817,24 @@ public final class Messages {
                 }
                 break;
               }
-              case 8: {
+              case 9: {
                 bitField0_ |= 0x00000001;
-                x_ = input.readInt32();
+                x_ = input.readDouble();
                 break;
               }
-              case 16: {
+              case 17: {
                 bitField0_ |= 0x00000002;
-                y_ = input.readInt32();
+                y_ = input.readDouble();
                 break;
               }
-              case 24: {
+              case 25: {
                 bitField0_ |= 0x00000004;
-                handX_ = input.readInt32();
+                handX_ = input.readDouble();
                 break;
               }
-              case 32: {
+              case 33: {
                 bitField0_ |= 0x00000008;
-                handY_ = input.readInt32();
+                handY_ = input.readDouble();
                 break;
               }
               case 42: {
@@ -2848,15 +2848,15 @@ public final class Messages {
         
         private int bitField0_;
         
-        // required int32 x = 1;
-        private int x_ ;
+        // required double x = 1;
+        private double x_ ;
         public boolean hasX() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public int getX() {
+        public double getX() {
           return x_;
         }
-        public Builder setX(int value) {
+        public Builder setX(double value) {
           bitField0_ |= 0x00000001;
           x_ = value;
           onChanged();
@@ -2864,20 +2864,20 @@ public final class Messages {
         }
         public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000001);
-          x_ = 0;
+          x_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 y = 2;
-        private int y_ ;
+        // required double y = 2;
+        private double y_ ;
         public boolean hasY() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        public int getY() {
+        public double getY() {
           return y_;
         }
-        public Builder setY(int value) {
+        public Builder setY(double value) {
           bitField0_ |= 0x00000002;
           y_ = value;
           onChanged();
@@ -2885,20 +2885,20 @@ public final class Messages {
         }
         public Builder clearY() {
           bitField0_ = (bitField0_ & ~0x00000002);
-          y_ = 0;
+          y_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 handX = 3;
-        private int handX_ ;
+        // required double handX = 3;
+        private double handX_ ;
         public boolean hasHandX() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public int getHandX() {
+        public double getHandX() {
           return handX_;
         }
-        public Builder setHandX(int value) {
+        public Builder setHandX(double value) {
           bitField0_ |= 0x00000004;
           handX_ = value;
           onChanged();
@@ -2906,20 +2906,20 @@ public final class Messages {
         }
         public Builder clearHandX() {
           bitField0_ = (bitField0_ & ~0x00000004);
-          handX_ = 0;
+          handX_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 handY = 4;
-        private int handY_ ;
+        // required double handY = 4;
+        private double handY_ ;
         public boolean hasHandY() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
-        public int getHandY() {
+        public double getHandY() {
           return handY_;
         }
-        public Builder setHandY(int value) {
+        public Builder setHandY(double value) {
           bitField0_ |= 0x00000008;
           handY_ = value;
           onChanged();
@@ -2927,7 +2927,7 @@ public final class Messages {
         }
         public Builder clearHandY() {
           bitField0_ = (bitField0_ & ~0x00000008);
-          handY_ = 0;
+          handY_ = 0D;
           onChanged();
           return this;
         }
@@ -3475,21 +3475,21 @@ public final class Messages {
       boolean hasOwner();
       String getOwner();
       
-      // required int32 X = 3;
+      // required double X = 3;
       boolean hasX();
-      int getX();
+      double getX();
       
-      // required int32 Y = 4;
+      // required double Y = 4;
       boolean hasY();
-      int getY();
+      double getY();
       
-      // required int32 dirX = 5;
+      // required double dirX = 5;
       boolean hasDirX();
-      int getDirX();
+      double getDirX();
       
-      // required int32 dirY = 6;
+      // required double dirY = 6;
       boolean hasDirY();
-      int getDirY();
+      double getDirY();
     }
     public static final class Projectile extends
         com.google.protobuf.GeneratedMessage
@@ -3628,53 +3628,53 @@ public final class Messages {
         }
       }
       
-      // required int32 X = 3;
+      // required double X = 3;
       public static final int X_FIELD_NUMBER = 3;
-      private int x_;
+      private double x_;
       public boolean hasX() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getX() {
+      public double getX() {
         return x_;
       }
       
-      // required int32 Y = 4;
+      // required double Y = 4;
       public static final int Y_FIELD_NUMBER = 4;
-      private int y_;
+      private double y_;
       public boolean hasY() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getY() {
+      public double getY() {
         return y_;
       }
       
-      // required int32 dirX = 5;
+      // required double dirX = 5;
       public static final int DIRX_FIELD_NUMBER = 5;
-      private int dirX_;
+      private double dirX_;
       public boolean hasDirX() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public int getDirX() {
+      public double getDirX() {
         return dirX_;
       }
       
-      // required int32 dirY = 6;
+      // required double dirY = 6;
       public static final int DIRY_FIELD_NUMBER = 6;
-      private int dirY_;
+      private double dirY_;
       public boolean hasDirY() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public int getDirY() {
+      public double getDirY() {
         return dirY_;
       }
       
       private void initFields() {
         type_ = org.jombie.server.Messages.ServerMessage.Projectile.Type.PistolBullet;
         owner_ = "";
-        x_ = 0;
-        y_ = 0;
-        dirX_ = 0;
-        dirY_ = 0;
+        x_ = 0D;
+        y_ = 0D;
+        dirX_ = 0D;
+        dirY_ = 0D;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -3719,16 +3719,16 @@ public final class Messages {
           output.writeBytes(2, getOwnerBytes());
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(3, x_);
+          output.writeDouble(3, x_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(4, y_);
+          output.writeDouble(4, y_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          output.writeInt32(5, dirX_);
+          output.writeDouble(5, dirX_);
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          output.writeInt32(6, dirY_);
+          output.writeDouble(6, dirY_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -3749,19 +3749,19 @@ public final class Messages {
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, x_);
+            .computeDoubleSize(3, x_);
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, y_);
+            .computeDoubleSize(4, y_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(5, dirX_);
+            .computeDoubleSize(5, dirX_);
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(6, dirY_);
+            .computeDoubleSize(6, dirY_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -3891,13 +3891,13 @@ public final class Messages {
           bitField0_ = (bitField0_ & ~0x00000001);
           owner_ = "";
           bitField0_ = (bitField0_ & ~0x00000002);
-          x_ = 0;
+          x_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000004);
-          y_ = 0;
+          y_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000008);
-          dirX_ = 0;
+          dirX_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000010);
-          dirY_ = 0;
+          dirY_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
@@ -4066,24 +4066,24 @@ public final class Messages {
                 owner_ = input.readBytes();
                 break;
               }
-              case 24: {
+              case 25: {
                 bitField0_ |= 0x00000004;
-                x_ = input.readInt32();
+                x_ = input.readDouble();
                 break;
               }
-              case 32: {
+              case 33: {
                 bitField0_ |= 0x00000008;
-                y_ = input.readInt32();
+                y_ = input.readDouble();
                 break;
               }
-              case 40: {
+              case 41: {
                 bitField0_ |= 0x00000010;
-                dirX_ = input.readInt32();
+                dirX_ = input.readDouble();
                 break;
               }
-              case 48: {
+              case 49: {
                 bitField0_ |= 0x00000020;
-                dirY_ = input.readInt32();
+                dirY_ = input.readDouble();
                 break;
               }
             }
@@ -4152,15 +4152,15 @@ public final class Messages {
           onChanged();
         }
         
-        // required int32 X = 3;
-        private int x_ ;
+        // required double X = 3;
+        private double x_ ;
         public boolean hasX() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public int getX() {
+        public double getX() {
           return x_;
         }
-        public Builder setX(int value) {
+        public Builder setX(double value) {
           bitField0_ |= 0x00000004;
           x_ = value;
           onChanged();
@@ -4168,20 +4168,20 @@ public final class Messages {
         }
         public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000004);
-          x_ = 0;
+          x_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 Y = 4;
-        private int y_ ;
+        // required double Y = 4;
+        private double y_ ;
         public boolean hasY() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
-        public int getY() {
+        public double getY() {
           return y_;
         }
-        public Builder setY(int value) {
+        public Builder setY(double value) {
           bitField0_ |= 0x00000008;
           y_ = value;
           onChanged();
@@ -4189,20 +4189,20 @@ public final class Messages {
         }
         public Builder clearY() {
           bitField0_ = (bitField0_ & ~0x00000008);
-          y_ = 0;
+          y_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dirX = 5;
-        private int dirX_ ;
+        // required double dirX = 5;
+        private double dirX_ ;
         public boolean hasDirX() {
           return ((bitField0_ & 0x00000010) == 0x00000010);
         }
-        public int getDirX() {
+        public double getDirX() {
           return dirX_;
         }
-        public Builder setDirX(int value) {
+        public Builder setDirX(double value) {
           bitField0_ |= 0x00000010;
           dirX_ = value;
           onChanged();
@@ -4210,20 +4210,20 @@ public final class Messages {
         }
         public Builder clearDirX() {
           bitField0_ = (bitField0_ & ~0x00000010);
-          dirX_ = 0;
+          dirX_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dirY = 6;
-        private int dirY_ ;
+        // required double dirY = 6;
+        private double dirY_ ;
         public boolean hasDirY() {
           return ((bitField0_ & 0x00000020) == 0x00000020);
         }
-        public int getDirY() {
+        public double getDirY() {
           return dirY_;
         }
-        public Builder setDirY(int value) {
+        public Builder setDirY(double value) {
           bitField0_ |= 0x00000020;
           dirY_ = value;
           onChanged();
@@ -4231,7 +4231,7 @@ public final class Messages {
         }
         public Builder clearDirY() {
           bitField0_ = (bitField0_ & ~0x00000020);
-          dirY_ = 0;
+          dirY_ = 0D;
           onChanged();
           return this;
         }
@@ -4262,21 +4262,21 @@ public final class Messages {
       boolean hasType();
       org.jombie.server.Messages.ServerMessage.UnitType getType();
       
-      // required int32 x = 4;
+      // required double x = 4;
       boolean hasX();
-      int getX();
+      double getX();
       
-      // required int32 y = 5;
+      // required double y = 5;
       boolean hasY();
-      int getY();
+      double getY();
       
-      // required int32 dirX = 7;
+      // required double dirX = 7;
       boolean hasDirX();
-      int getDirX();
+      double getDirX();
       
-      // required int32 dirY = 8;
+      // required double dirY = 8;
       boolean hasDirY();
-      int getDirY();
+      double getDirY();
     }
     public static final class newComer extends
         com.google.protobuf.GeneratedMessage
@@ -4428,43 +4428,43 @@ public final class Messages {
         return type_;
       }
       
-      // required int32 x = 4;
+      // required double x = 4;
       public static final int X_FIELD_NUMBER = 4;
-      private int x_;
+      private double x_;
       public boolean hasX() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getX() {
+      public double getX() {
         return x_;
       }
       
-      // required int32 y = 5;
+      // required double y = 5;
       public static final int Y_FIELD_NUMBER = 5;
-      private int y_;
+      private double y_;
       public boolean hasY() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public int getY() {
+      public double getY() {
         return y_;
       }
       
-      // required int32 dirX = 7;
+      // required double dirX = 7;
       public static final int DIRX_FIELD_NUMBER = 7;
-      private int dirX_;
+      private double dirX_;
       public boolean hasDirX() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public int getDirX() {
+      public double getDirX() {
         return dirX_;
       }
       
-      // required int32 dirY = 8;
+      // required double dirY = 8;
       public static final int DIRY_FIELD_NUMBER = 8;
-      private int dirY_;
+      private double dirY_;
       public boolean hasDirY() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
-      public int getDirY() {
+      public double getDirY() {
         return dirY_;
       }
       
@@ -4472,10 +4472,10 @@ public final class Messages {
         team_ = org.jombie.server.Messages.ServerMessage.newComer.Team.A;
         name_ = "";
         type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
-        x_ = 0;
-        y_ = 0;
-        dirX_ = 0;
-        dirY_ = 0;
+        x_ = 0D;
+        y_ = 0D;
+        dirX_ = 0D;
+        dirY_ = 0D;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -4527,16 +4527,16 @@ public final class Messages {
           output.writeEnum(3, type_.getNumber());
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(4, x_);
+          output.writeDouble(4, x_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          output.writeInt32(5, y_);
+          output.writeDouble(5, y_);
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          output.writeInt32(7, dirX_);
+          output.writeDouble(7, dirX_);
         }
         if (((bitField0_ & 0x00000040) == 0x00000040)) {
-          output.writeInt32(8, dirY_);
+          output.writeDouble(8, dirY_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -4561,19 +4561,19 @@ public final class Messages {
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, x_);
+            .computeDoubleSize(4, x_);
         }
         if (((bitField0_ & 0x00000010) == 0x00000010)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(5, y_);
+            .computeDoubleSize(5, y_);
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(7, dirX_);
+            .computeDoubleSize(7, dirX_);
         }
         if (((bitField0_ & 0x00000040) == 0x00000040)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(8, dirY_);
+            .computeDoubleSize(8, dirY_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -4705,13 +4705,13 @@ public final class Messages {
           bitField0_ = (bitField0_ & ~0x00000002);
           type_ = org.jombie.server.Messages.ServerMessage.UnitType.Marine;
           bitField0_ = (bitField0_ & ~0x00000004);
-          x_ = 0;
+          x_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000008);
-          y_ = 0;
+          y_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000010);
-          dirX_ = 0;
+          dirX_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000020);
-          dirY_ = 0;
+          dirY_ = 0D;
           bitField0_ = (bitField0_ & ~0x00000040);
           return this;
         }
@@ -4902,24 +4902,24 @@ public final class Messages {
                 }
                 break;
               }
-              case 32: {
+              case 33: {
                 bitField0_ |= 0x00000008;
-                x_ = input.readInt32();
+                x_ = input.readDouble();
                 break;
               }
-              case 40: {
+              case 41: {
                 bitField0_ |= 0x00000010;
-                y_ = input.readInt32();
+                y_ = input.readDouble();
                 break;
               }
-              case 56: {
+              case 57: {
                 bitField0_ |= 0x00000020;
-                dirX_ = input.readInt32();
+                dirX_ = input.readDouble();
                 break;
               }
-              case 64: {
+              case 65: {
                 bitField0_ |= 0x00000040;
-                dirY_ = input.readInt32();
+                dirY_ = input.readDouble();
                 break;
               }
             }
@@ -5012,15 +5012,15 @@ public final class Messages {
           return this;
         }
         
-        // required int32 x = 4;
-        private int x_ ;
+        // required double x = 4;
+        private double x_ ;
         public boolean hasX() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
-        public int getX() {
+        public double getX() {
           return x_;
         }
-        public Builder setX(int value) {
+        public Builder setX(double value) {
           bitField0_ |= 0x00000008;
           x_ = value;
           onChanged();
@@ -5028,20 +5028,20 @@ public final class Messages {
         }
         public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000008);
-          x_ = 0;
+          x_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 y = 5;
-        private int y_ ;
+        // required double y = 5;
+        private double y_ ;
         public boolean hasY() {
           return ((bitField0_ & 0x00000010) == 0x00000010);
         }
-        public int getY() {
+        public double getY() {
           return y_;
         }
-        public Builder setY(int value) {
+        public Builder setY(double value) {
           bitField0_ |= 0x00000010;
           y_ = value;
           onChanged();
@@ -5049,20 +5049,20 @@ public final class Messages {
         }
         public Builder clearY() {
           bitField0_ = (bitField0_ & ~0x00000010);
-          y_ = 0;
+          y_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dirX = 7;
-        private int dirX_ ;
+        // required double dirX = 7;
+        private double dirX_ ;
         public boolean hasDirX() {
           return ((bitField0_ & 0x00000020) == 0x00000020);
         }
-        public int getDirX() {
+        public double getDirX() {
           return dirX_;
         }
-        public Builder setDirX(int value) {
+        public Builder setDirX(double value) {
           bitField0_ |= 0x00000020;
           dirX_ = value;
           onChanged();
@@ -5070,20 +5070,20 @@ public final class Messages {
         }
         public Builder clearDirX() {
           bitField0_ = (bitField0_ & ~0x00000020);
-          dirX_ = 0;
+          dirX_ = 0D;
           onChanged();
           return this;
         }
         
-        // required int32 dirY = 8;
-        private int dirY_ ;
+        // required double dirY = 8;
+        private double dirY_ ;
         public boolean hasDirY() {
           return ((bitField0_ & 0x00000040) == 0x00000040);
         }
-        public int getDirY() {
+        public double getDirY() {
           return dirY_;
         }
-        public Builder setDirY(int value) {
+        public Builder setDirY(double value) {
           bitField0_ |= 0x00000040;
           dirY_ = value;
           onChanged();
@@ -5091,7 +5091,7 @@ public final class Messages {
         }
         public Builder clearDirY() {
           bitField0_ = (bitField0_ & ~0x00000040);
-          dirY_ = 0;
+          dirY_ = 0D;
           onChanged();
           return this;
         }
@@ -6017,28 +6017,28 @@ public final class Messages {
       "\030\002 \001(\0132).org.jombie.server.ClientMessage" +
       ".Location\0225\n\005death\030\003 \001(\0132&.org.jombie.se" +
       "rver.ClientMessage.Death\0328\n\010Location\022\n\n\002" +
-      "dX\030\001 \002(\005\022\n\n\002dy\030\002 \002(\005\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002" +
-      "(\005\0329\n\005Shoot\022\t\n\001X\030\001 \002(\005\022\t\n\001Y\030\002 \002(\005\022\014\n\004dir" +
-      "X\030\003 \002(\005\022\014\n\004dirY\030\004 \002(\005\032\027\n\005Death\022\016\n\006killer" +
+      "dX\030\001 \002(\001\022\n\n\002dy\030\002 \002(\001\022\t\n\001x\030\003 \002(\001\022\t\n\001y\030\004 \002" +
+      "(\001\0329\n\005Shoot\022\t\n\001X\030\001 \002(\001\022\t\n\001Y\030\002 \002(\001\022\014\n\004dir" +
+      "X\030\003 \002(\001\022\014\n\004dirY\030\004 \002(\001\032\027\n\005Death\022\016\n\006killer" +
       "\030\001 \002(\t\"\205\006\n\rServerMessage\0226\n\003new\030\001 \001(\0132).",
       "org.jombie.server.ServerMessage.newComer" +
       "\0229\n\004proj\030\002 \001(\0132+.org.jombie.server.Serve" +
       "rMessage.Projectile\0229\n\005death\030\003 \001(\0132*.org" +
       ".jombie.server.ServerMessage.DeathNews\0223" +
       "\n\004info\030\004 \001(\0132%.org.jombie.server.ServerM" +
-      "essage.Info\032H\n\004Info\022\t\n\001x\030\001 \002(\005\022\t\n\001y\030\002 \002(" +
-      "\005\022\r\n\005handX\030\003 \002(\005\022\r\n\005handY\030\004 \002(\005\022\014\n\004user\030" +
+      "essage.Info\032H\n\004Info\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030\002 \002(" +
+      "\001\022\r\n\005handX\030\003 \002(\001\022\r\n\005handY\030\004 \002(\001\022\014\n\004user\030" +
       "\005 \002(\t\032+\n\tDeathNews\022\016\n\006victim\030\001 \002(\t\022\016\n\006ki" +
       "ller\030\002 \002(\t\032\247\001\n\nProjectile\022>\n\004type\030\001 \002(\0162" +
       "0.org.jombie.server.ServerMessage.Projec",
-      "tile.Type\022\r\n\005owner\030\002 \002(\t\022\t\n\001X\030\003 \002(\005\022\t\n\001Y" +
-      "\030\004 \002(\005\022\014\n\004dirX\030\005 \002(\005\022\014\n\004dirY\030\006 \002(\005\"\030\n\004Ty" +
+      "tile.Type\022\r\n\005owner\030\002 \002(\t\022\t\n\001X\030\003 \002(\001\022\t\n\001Y" +
+      "\030\004 \002(\001\022\014\n\004dirX\030\005 \002(\001\022\014\n\004dirY\030\006 \002(\001\"\030\n\004Ty" +
       "pe\022\020\n\014PistolBullet\020\001\032\327\001\n\010newComer\022<\n\004tea" +
       "m\030\001 \002(\0162..org.jombie.server.ServerMessag" +
       "e.newComer.Team\022\014\n\004name\030\002 \002(\t\0227\n\004type\030\003 " +
       "\002(\0162).org.jombie.server.ServerMessage.Un" +
-      "itType\022\t\n\001x\030\004 \002(\005\022\t\n\001y\030\005 \002(\005\022\014\n\004dirX\030\007 \002" +
-      "(\005\022\014\n\004dirY\030\010 \002(\005\"\024\n\004Team\022\005\n\001A\020\001\022\005\n\001B\020\002\"\026" +
+      "itType\022\t\n\001x\030\004 \002(\001\022\t\n\001y\030\005 \002(\001\022\014\n\004dirX\030\007 \002" +
+      "(\001\022\014\n\004dirY\030\010 \002(\001\"\024\n\004Team\022\005\n\001A\020\001\022\005\n\001B\020\002\"\026" +
       "\n\010UnitType\022\n\n\006Marine\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

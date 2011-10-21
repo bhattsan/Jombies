@@ -35,6 +35,7 @@ import javax.swing.Timer;
 import org.jombie.common.Vector;
 import org.jombie.projectile.Projectile;
 import org.jombie.unit.Unit;
+import org.jombie.unit.Unit.Team;
 import org.jombie.unit.marines.Marine;
 import org.jombie.weapon.RangedWeapon;
 
@@ -154,7 +155,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				personX = (int) (location.getxCoord() - x);
 			} else {
 				System.out.println("BLAHE");
-				x = (int) (location.getxCoord()-_sizeX/2);
+				x = (int) (location.getxCoord() - _sizeX / 2);
 			}
 			if ((location.getyCoord() < _sizeY / 2)) {
 				personY = (int) location.getyCoord();
@@ -163,7 +164,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				y = actual.getHeight() - _sizeY;
 				personY = (int) (location.getyCoord() - y);
 			} else {
-				y=(int) (location.getyCoord()-_sizeY/2);
+				y = (int) (location.getyCoord() - _sizeY / 2);
 			}
 		} else {
 			newComer.setUserId(name);
@@ -191,21 +192,35 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public void projectilesSpawned(Vector location, Vector direction,
 			String owner) {
 		Unit ut = findUnit(owner);
-		System.out.println("got into mapview");
+		if (ut == null)
+			return;
 		Projectile spawned = ((RangedWeapon) ut.myWeapon).getBullet();
 		spawned.setPosition(location);
 		spawned.setDirection(direction);
+		spawned.setOwner(ut);
 		projectiles.add(spawned);
 	}
 
 	public void getInfo(String user, Vector location, Vector direction) {
 		Unit ut = findUnit(user);
+		if (ut == null)
+			return;
 		ut.setLocation(location);
 		ut.setLocation(direction);
 	}
 
 	PanelTest() {
-
+		ImageIcon ii = null;
+		try {
+			ii = new ImageIcon(ImageIO.read(new File(craft1)));
+			actual = ImageIO.read(new File(craft1));
+			expl = (BufferedImage) new ImageIcon(ImageIO.read(new File(
+					explosion))).getImage();
+			bulletImg = ImageIO.read(new File(bullet));
+			weaponImg = ImageIO.read(new File(weapon));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setBackground(Color.BLACK);
 		myUnit = new Marine();
 		myUnit.setUserId(JOptionPane.showInputDialog("Enter a username"));
@@ -233,18 +248,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		// _gunRadius
 		healthBar.setBounds(0, 0, 800, 50);
 		pressedKeys = new LinkedHashSet<>();
-		ImageIcon ii = null;
 
-		try {
-			ii = new ImageIcon(ImageIO.read(new File(craft1)));
-			actual = ImageIO.read(new File(craft1));
-			expl = (BufferedImage) new ImageIcon(ImageIO.read(new File(
-					explosion))).getImage();
-			bulletImg = ImageIO.read(new File(bullet));
-			weaponImg = ImageIO.read(new File(weapon));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		plane = (BufferedImage) ii.getImage();
 
 		projectiles = new ArrayList<Projectile>();
@@ -252,7 +256,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		setDoubleBuffered(true);
 		setFocusable(true);
 
-		Timer s = new Timer(5, new ActionListener() {
+		Timer s = new Timer(20, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -322,8 +326,14 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		}
 	}
 
+	long derp = 0;
+
 	private void move() {
+		if (derp == 0)
+			derp = System.currentTimeMillis();
+		boolean changed =false;
 		if (pressedKeys.size() == 1) {
+			changed = true;
 			moveAStep(pressedKeys.iterator().next());
 		} else if (pressedKeys.size() > 0) {
 			int dirUp = -1;
@@ -334,12 +344,16 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				else
 					dirLeft = curr;
 			}
+			changed = dirUp!=-1 && dirLeft !=-2;
 			moveAStep(dirUp);
 			moveAStep(dirLeft);
-				if (myUnit.direction == null)
-					myClient.sendCoords(myUnit.location, myUnit.location, true);
-				else
-					myClient.sendCoords(myUnit.location, myUnit.direction, true);
+		}
+		if (System.currentTimeMillis() - derp > 24) {
+			derp = System.currentTimeMillis();
+			if (myUnit.direction == null&& changed)
+				myClient.sendCoords(myUnit.location, myUnit.location, true);
+			else if(changed)
+				myClient.sendCoords(myUnit.location, myUnit.direction, true);
 		}
 
 	}
@@ -560,7 +574,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			pos.addScalarVector(direction, _meRadius / 2 + _gunRadius / 2);
 			s.setPosition(pos);
 			s.setDirection(direction);
-			// myClient.sendShoot(direction, pos);
+			myClient.sendShoot(direction, pos);
 			projectiles.add(s);
 		}
 	}

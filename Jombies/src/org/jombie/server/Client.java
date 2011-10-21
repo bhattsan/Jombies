@@ -69,19 +69,19 @@ public class Client {
 		}
 	}
 
-	public int getCurrPosX() {
-		return (int) unit.getLocation().getxCoord();
+	public double getCurrPosX() {
+		return unit.getLocation().getxCoord();
 	}
 
-	public void setCurrPosX(int currPosX) {
+	public void setCurrPosX(double currPosX) {
 		unit.getLocation().setxCoord(currPosX);
 	}
 
-	public int getCurrPosY() {
-		return (int) unit.getLocation().getyCoord();
+	public double getCurrPosY() {
+		return unit.getLocation().getyCoord();
 	}
 
-	public void setCurrPosY(int currPosY) {
+	public void setCurrPosY(double currPosY) {
 		unit.getLocation().setyCoord(currPosY);
 	}
 

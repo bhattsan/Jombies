@@ -105,28 +105,24 @@ public class Game implements Runnable {
 			newC.setName(currClient.getUserName());
 			newC.setType(UnitType.Marine);
 			if(teamA.contains(currClient.getUserName())){
-					newC.setX((int) (Math.random()*350+20));
-					newC.setY((int) (Math.random()*300+20));
+					newC.setX( (Math.random()*350+20));
+					newC.setY( (Math.random()*300+20));
 			} else {
-				newC.setX((int) (Math.random()*600+1300));
-				newC.setY((int) (Math.random()*500+950));
+				newC.setX( (Math.random()*600+1300));
+				newC.setY( (Math.random()*500+950));
 			}
 			newC.setDirX(0);
 			newC.setDirY(0);
 			build.setNew(newC);
 			String mess = new BigInteger(build.build().toByteArray()).toString(16);
 			for(Client curr : clients){
-				if(!curr.getUserName().equals(currClient.getUserName())){
 					curr.sendMessage(mess);
-					System.out.println("sent a message");
-				}
 			}
 				
 		}
 	}
 	private void sendToBroadCast() {
 		for(String message : broadCastQueue){
-			System.out.println("Writing" + message);
 			BigInteger bi = new BigInteger(message,16);
 			try {
 				ServerMessage.parseFrom(bi.toByteArray());
@@ -135,9 +131,10 @@ public class Game implements Runnable {
 				e.printStackTrace();
 			}
 			for(Client currClient : clients){
-				currClient.sendMessage(message);
+				if(!currClient.sendMessage(message)) System.out.println("uh oh");
 			}
 		}
+		broadCastQueue.clear();
 	}
 	private void parseMessages() {
 		broadCastQueue.clear();
@@ -155,26 +152,24 @@ public class Game implements Runnable {
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
-			System.out.println("got here");
 			if(theMessage.hasChDir()){
-				System.out.println("YEP");
 				Location dir = theMessage.getChDir(); 
 				theClient.setCurrPosX(dir.getX());
 				theClient.setCurrPosY(dir.getY());
 				theClient.getDir().setxCoord(dir.getDX());
 				theClient.getDir().setyCoord(dir.getDy());
+				System.out.println(theClient.getPos());
 				//set the broadcast message
 				ServerMessage.Builder serverB = ServerMessage.newBuilder();
 				Info.Builder infoB = Info.newBuilder();
-				infoB.setX((int) theClient.getPos().getxCoord());
-				infoB.setY((int) theClient.getPos().getyCoord());
-				infoB.setHandX((int) theClient.getDir().getxCoord());
-				infoB.setHandY((int) theClient.getDir().getyCoord());
+				infoB.setX(theClient.getPos().getxCoord());
+				infoB.setY( theClient.getPos().getyCoord());
+				infoB.setHandX( theClient.getDir().getxCoord());
+				infoB.setHandY( theClient.getDir().getyCoord());
 				infoB.setUser(theClient.getUserName());
 				serverB.setInfo(infoB);
 				broadCastQueue.add(new BigInteger(serverB.build().toByteArray()).toString(16));
 				
-				System.out.println(user+","+theClient.getCurrPosX()+ " "+ theClient.getCurrPosY());
 			} else if (theMessage.hasDeath()){
 				String killer = theMessage.getDeath().getKiller();
 				String victim = theClient.getUserName();
@@ -198,6 +193,7 @@ public class Game implements Runnable {
 				shoot.setType(Type.PistolBullet);
 				shoot.setOwner(theClient.getUserName());
 				newShoot.setProj(shoot);
+				System.out.println("got shome");
 				
 				broadCastQueue.add(new BigInteger(newShoot.build().toByteArray()).toString(16));
 				
