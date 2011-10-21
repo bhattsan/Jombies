@@ -49,7 +49,8 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static final int _sizeX = 400;
 	private static final int _sizeY = 400;
 	private static final int _meRadius = 20;
-	private static final int _gunRadius = 5;
+	private static final int _gunRadius = 15;
+	private static final int _gunSize = 10;
 	private static final int RIGHT = 3;
 	private static final int LEFT = 2;
 	private static final int UP = 1;
@@ -57,6 +58,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static final int SPEED = 10;
 	private static int personX = _sizeX/2, personY = _sizeY/2;
 	private Color map = Color.WHITE;
+
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
 	BufferedImage plane;
@@ -65,11 +67,10 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 	byte direction = 0; // 0 -down, 1-right, 2-up, 3-left
 	private Set<Integer> pressedKeys;
-	
 
 	PanelTest() {
 		setBackground(Color.BLACK);
-		pressedKeys= new LinkedHashSet<>();
+		pressedKeys = new LinkedHashSet<>();
 		ImageIcon ii = null;
 		try {
 			ii = new ImageIcon(ImageIO.read(new File(craft1)));
@@ -81,23 +82,24 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 		setDoubleBuffered(true);
 		setFocusable(true);
-		Timer s = new Timer(10, new ActionListener() {
+		Timer s = new Timer(1, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				repaint();
 			}
 		});
-		 s.start();
+		s.start();
 		requestFocus();
 		addKeyListener(this);
 		addFocusListener(this);
+		addMouseMotionListener(this);
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		if (arg0.getKeyCode() == KeyEvent.VK_D) {
@@ -110,6 +112,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 			pressedKeys.remove(DOWN);
 		}
 	}
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		if (arg0.getKeyCode() == KeyEvent.VK_D) {
@@ -124,14 +127,16 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void move() {
-		if(pressedKeys.size()==1){
+		if (pressedKeys.size() == 1) {
 			moveAStep(pressedKeys.iterator().next());
-		}else if(pressedKeys.size()>0){
-			int dirUp=-1;
-			int dirLeft=-2;
-			for(Integer curr : pressedKeys){
-				if(curr==UP || curr==DOWN) dirUp=curr;
-				else dirLeft = curr;
+		} else if (pressedKeys.size() > 0) {
+			int dirUp = -1;
+			int dirLeft = -2;
+			for (Integer curr : pressedKeys) {
+				if (curr == UP || curr == DOWN)
+					dirUp = curr;
+				else
+					dirLeft = curr;
 			}
 			moveAStep(dirUp);
 			moveAStep(dirLeft);
@@ -192,14 +197,18 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 	@Override
 	public void paint(Graphics g) {
-		
+
 		super.paint(g);
 		move();
 		g.setColor(Color.WHITE);
 		g.drawImage(plane, 0, 0, _sizeX, _sizeY, x, y, x + _sizeX, y + _sizeY,
 				this);
 		g.setColor(Color.GREEN);
-		g.fillOval(personX, personY, _meRadius, _meRadius);
+		g.fillOval(personX-_meRadius/2, personY-_meRadius/2, _meRadius, _meRadius);
+		int x = (int) (_gunRadius * Math.cos(weaponAngle));
+		int y = (int) (_gunRadius * Math.sin(weaponAngle));
+		g.setColor(Color.RED);
+		g.fillOval(personX + x-_gunSize/2, personY - y-_gunSize/2, _gunSize, _gunSize);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -224,11 +233,20 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		int x = arg0.getX();
-		int y = arg0.getY();
-		weaponAngle = Math.atan(y / x);
+	public void mouseMoved(MouseEvent mouseHitPoint) {
+		int xHit = mouseHitPoint.getX();
+		int yHit = mouseHitPoint.getY();
+		System.out.printf("(%d, %d)\t", xHit, yHit);
+		xHit = xHit - personX;
+		yHit = personY - yHit;
+		if (xHit == 0) {
+			weaponAngle = Math.PI / 2 * (yHit > 0 ? 1 : -1);
+		} else {
+			weaponAngle = Math.atan((double)yHit / xHit);
+			if(xHit<0){
+				weaponAngle+=Math.PI;
+			}
+		}
+		System.out.println(weaponAngle);
 	}
-
-	
 }
