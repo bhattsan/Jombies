@@ -28,6 +28,7 @@ public class MapView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Game");
+		//jijfoeijfoie
 		setResizable(true);
 
 		setVisible(true);
