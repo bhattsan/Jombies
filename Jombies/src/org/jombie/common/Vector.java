@@ -60,4 +60,7 @@ public class Vector {
 	public String toString() {
 		return xCoord+","+yCoord;
 	}
+	public double distanceBetween(Vector other){
+		return Math.sqrt(Math.pow(Math.abs(other.xCoord-xCoord),2) + Math.pow(Math.abs(other.yCoord-yCoord),2));
+	}
 }

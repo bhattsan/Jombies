@@ -122,7 +122,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				for (Projectile proj : projectiles) {
 					proj.updatePosition();
 					if (!isValidSpace(proj.getPosition().getxCoord(), proj
-							.getPosition().getyCoord(), proj.getRadius())) {
+							.getPosition().getyCoord(), proj.getRadius(), actual)) {
 						toKill.add(proj);
 					}
 				}
@@ -210,15 +210,15 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		return first == second;
 	}
 
-	public boolean isValidSpace(int x, int y, int radius) {
-		if (x <= 0 || x > actual.getWidth() || y <= 0 || y > actual.getHeight()) {
+	public static boolean isValidSpace(int x, int y, int radius, BufferedImage image) {
+		if (x <= 0 || x > image.getWidth() || y <= 0 || y > image.getHeight()) {
 			return false;
 		}
 		for (int i = x; i < x + radius; i++) {
-			if (i < actual.getWidth()) {
+			if (i < image.getWidth()) {
 				for (int j = y; j < y + radius; j++) {
-					if (j < actual.getHeight()) {
-						if (actual.getRGB(i, j) == Color.black.getRGB())
+					if (j < image.getHeight()) {
+						if (image.getRGB(i, j) == Color.black.getRGB())
 							return false;
 					}
 				}
@@ -231,11 +231,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		if ((x == 0 && personX > _meRadius / 2)
 				|| (x + getWidth() == plane.getWidth() && personX > _sizeX / 2)) {
 			if (isValidSpace(x + personX - 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				personX--;
 		} else if (x > 0) {
 			if (isValidSpace(x + personX - 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				x--;
 		}
 	}
@@ -244,11 +244,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		if ((y == 0 && personY > _meRadius / 2)
 				|| (y + getHeight() == plane.getHeight() && personY > _sizeY / 2)) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY
-					- _meRadius / 2 - 1, _meRadius))
+					- _meRadius / 2 - 1, _meRadius, actual))
 				personY--;
 		} else if (y > 0) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY
-					- _meRadius / 2 - 1, _meRadius))
+					- _meRadius / 2 - 1, _meRadius, actual))
 				y--;
 		}
 	}
@@ -258,11 +258,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				|| (x + getWidth() == plane.getWidth() && personX + _meRadius
 						/ 2 < getWidth())) {
 			if (isValidSpace(x + personX + 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				personX++;
 		} else if (x + getWidth() < plane.getWidth()) {
 			if (isValidSpace(x + personX + 1 - _meRadius / 2, y + personY
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				x++;
 		}
 	}
@@ -272,11 +272,11 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				|| (y + getHeight() == plane.getHeight() && y + personY
 						+ _meRadius / 2 < plane.getHeight())) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY + 1
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				personY++;
 		} else if (y + getHeight() < plane.getHeight()) {
 			if (isValidSpace(x + personX - _meRadius / 2, y + personY + 1
-					- _meRadius / 2, _meRadius))
+					- _meRadius / 2, _meRadius, actual))
 				y++;
 		}
 	}
@@ -327,7 +327,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

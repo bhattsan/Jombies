@@ -5,6 +5,7 @@ import org.jombie.common.Vector;
 public abstract class Projectile {
 	int speed;
 	int radius;
+	private String owner;
 	public int getRadius() {
 		return radius;
 	}
@@ -34,6 +35,13 @@ public abstract class Projectile {
 //		System.out.println(position);
 		System.out.println(direction.findAngle());
 	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 	Vector direction = new Vector();
 	Vector position = new Vector();
+	
 }
