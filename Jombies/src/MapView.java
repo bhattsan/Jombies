@@ -61,7 +61,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static final int UP = 1;
 	private static final int DOWN = 0;
 	private static final int SPEED = 10;
-	private static int personX = _sizeX/2, personY = _sizeY/2;
+	private static int personX = _sizeX / 2, personY = _sizeY / 2;
 	private Color map = Color.WHITE;
 	private Vector mousePoint = new Vector();
 
@@ -88,17 +88,16 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		setBackground(Color.BLACK);
 		pressedKeys = new LinkedHashSet<>();
 		ImageIcon ii = null;
-		
+
 		try {
 			ii = new ImageIcon(ImageIO.read(new File(craft1)));
 			actual = ImageIO.read(new File(craft1));
 			expl = ImageIO.read(new File(explosion));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		plane = (BufferedImage) ii.getImage();
-		
+
 		setDoubleBuffered(true);
 		setFocusable(true);
 		Timer s = new Timer(10, new ActionListener() {
@@ -109,7 +108,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				me.setxCoord(personX);
 				me.setyCoord(personY);
 				weaponAngle = me.findAngle(mousePoint);
-//				System.out.println(weaponAngle);
+				// System.out.println(weaponAngle);
 				repaint();
 			}
 		});
@@ -168,29 +167,34 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void moveAStep(Integer next) {
-		for(int i=0; i<SPEED; i++){
-			if(next==UP) moveUp();
-			else if(next==DOWN) moveDown();
-			else if(next==LEFT) moveLeft();
-			else if(next==RIGHT) moveRight();
+		for (int i = 0; i < SPEED; i++) {
+			if (next == UP)
+				moveUp();
+			else if (next == DOWN)
+				moveDown();
+			else if (next == LEFT)
+				moveLeft();
+			else if (next == RIGHT)
+				moveRight();
 		}
 	}
 
 	public boolean isFocusTraversable() {
 		return true;
 	}
-	
-	public boolean compareColors ( int first, int second){
+
+	public boolean compareColors(int first, int second) {
 		first = first & 0xFFFFFF;
 		second = second & 0xFFFFFF;
 		return first == second;
 	}
-	public boolean isValidSpace( int x, int y, int radius){
-		for(int i=x; i<x+radius; i++){
-			if(i<actual.getWidth()){
-				for(int j=y; j<y+radius; j++){
-					if(j<actual.getHeight()){
-						if(actual.getRGB(i, j)== Color.black.getRGB())
+
+	public boolean isValidSpace(int x, int y, int radius) {
+		for (int i = x; i < x + radius; i++) {
+			if (i < actual.getWidth()) {
+				for (int j = y; j < y + radius; j++) {
+					if (j < actual.getHeight()) {
+						if (actual.getRGB(i, j) == Color.black.getRGB())
 							return false;
 					}
 				}
@@ -198,46 +202,58 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		}
 		return true;
 	}
+
 	private void moveLeft() {
-		if((x==0 && personX> _meRadius/2) || 
-				(x+getWidth() == plane.getWidth() && personX >_sizeX/2)){
-			if(isValidSpace(x+personX-1-_meRadius/2, y+personY-_meRadius/2 , _meRadius)) 
+		if ((x == 0 && personX > _meRadius / 2)
+				|| (x + getWidth() == plane.getWidth() && personX > _sizeX / 2)) {
+			if (isValidSpace(x + personX - 1 - _meRadius / 2, y + personY
+					- _meRadius / 2, _meRadius))
 				personX--;
-		} else if (x>0){
-			if(isValidSpace(x+personX-1-_meRadius/2, y+personY-_meRadius/2 , _meRadius)) 
+		} else if (x > 0) {
+			if (isValidSpace(x + personX - 1 - _meRadius / 2, y + personY
+					- _meRadius / 2, _meRadius))
 				x--;
 		}
 	}
 
 	private void moveUp() {
-		if((y==0 && personY> _meRadius/2) || 
-				(y+getHeight() == plane.getHeight() && personY >_sizeY/2)){
-			if(isValidSpace(x+personX-_meRadius/2, y+personY-_meRadius/2-1 , _meRadius)) 
+		if ((y == 0 && personY > _meRadius / 2)
+				|| (y + getHeight() == plane.getHeight() && personY > _sizeY / 2)) {
+			if (isValidSpace(x + personX - _meRadius / 2, y + personY
+					- _meRadius / 2 - 1, _meRadius))
 				personY--;
-		} else if (y>0){
-			if(isValidSpace(x+personX-_meRadius/2, y+personY-_meRadius/2-1 , _meRadius)) 
+		} else if (y > 0) {
+			if (isValidSpace(x + personX - _meRadius / 2, y + personY
+					- _meRadius / 2 - 1, _meRadius))
 				y--;
 		}
 	}
 
 	private void moveRight() {
-		if((x==0 && personX< (_sizeY/2)) || 
-				(x+getWidth() == plane.getWidth() && personX + _meRadius/2<getWidth())){
-			if(isValidSpace(x+personX+1-_meRadius/2, y+personY-_meRadius/2 , _meRadius))
+		if ((x == 0 && personX < (_sizeY / 2))
+				|| (x + getWidth() == plane.getWidth() && personX + _meRadius
+						/ 2 < getWidth())) {
+			if (isValidSpace(x + personX + 1 - _meRadius / 2, y + personY
+					- _meRadius / 2, _meRadius))
 				personX++;
-		} else if (x+getWidth()<plane.getWidth()){
-			if(isValidSpace(x+personX+1-_meRadius/2, y+personY-_meRadius/2 , _meRadius)) 
+		} else if (x + getWidth() < plane.getWidth()) {
+			if (isValidSpace(x + personX + 1 - _meRadius / 2, y + personY
+					- _meRadius / 2, _meRadius))
 				x++;
 		}
 	}
 
 	private void moveDown() {
-		if((y==0 && personY< _sizeY/2) || 
-				(y+getHeight() == plane.getHeight() && 
-				y+ personY + _meRadius/2 < plane.getHeight())){
-			if(isValidSpace(x+personX-_meRadius/2, y+personY +1-_meRadius/2 , _meRadius)) personY++;
-		} else if (y+getHeight()<plane.getHeight()){
-			if(isValidSpace(x+personX-_meRadius/2, y+personY +1-_meRadius/2 , _meRadius)) y++;
+		if ((y == 0 && personY < _sizeY / 2)
+				|| (y + getHeight() == plane.getHeight() && y + personY
+						+ _meRadius / 2 < plane.getHeight())) {
+			if (isValidSpace(x + personX - _meRadius / 2, y + personY + 1
+					- _meRadius / 2, _meRadius))
+				personY++;
+		} else if (y + getHeight() < plane.getHeight()) {
+			if (isValidSpace(x + personX - _meRadius / 2, y + personY + 1
+					- _meRadius / 2, _meRadius))
+				y++;
 		}
 	}
 
@@ -292,30 +308,30 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

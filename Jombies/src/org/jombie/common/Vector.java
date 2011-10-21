@@ -23,7 +23,6 @@ public class Vector {
 		int xHit = other.xCoord;
 		int yHit = other.yCoord;
 		double angle;
-		System.out.printf("(%d, %d)\t", xHit, yHit);
 		int dX, dY;
 		dX = xHit - xCoord;
 		dY = yCoord - yHit;
