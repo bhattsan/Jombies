@@ -157,7 +157,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void moveLeft() {
-		if((x==0 && personX> 0) || 
+		if((x==0 && personX> _meRadius/2) || 
 				(x+getWidth() == plane.getWidth() && personX >_sizeX/2)){
 			personX--;
 		} else if (x>0){
@@ -166,7 +166,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void moveUp() {
-		if((y==0 && personY> 0) || 
+		if((y==0 && personY> _meRadius/2) || 
 				(y+getHeight() == plane.getHeight() && personY >_sizeY/2)){
 			personY--;
 		} else if (y>0){
@@ -175,8 +175,8 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	private void moveRight() {
-		if((x==0 && personX< (_sizeY/2+_meRadius)) || 
-				(x+getWidth() == plane.getWidth() && personX + _meRadius<getWidth())){
+		if((x==0 && personX< (_sizeY/2)) || 
+				(x+getWidth() == plane.getWidth() && personX + _meRadius/2<getWidth())){
 			personX++;
 		} else if (x+getWidth()<plane.getWidth()){
 			x++;
@@ -186,7 +186,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private void moveDown() {
 		if((y==0 && personY< _sizeY/2) || 
 				(y+getHeight() == plane.getHeight() && 
-				y+ personY + _meRadius < plane.getHeight())){
+				y+ personY + _meRadius/2 < plane.getHeight())){
 			System.out.println("sane1 "+personY+","+y+","+plane.getHeight());
 			personY++;
 		} else if (y+getHeight()<plane.getHeight()){
