@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import org.jombie.common.Vector;
+import org.jombie.unit.Unit;
 
 public class Client {
 	private static final int CLIENT_SPEED = 10;
@@ -16,14 +17,11 @@ public class Client {
 	private boolean connected;
 	private boolean isMoving;
 	private Game theGame;
-	private int currPosX;
-	private int currPosY;
-	private Vector currPos;
 	private Vector dir;
+	private Unit unit;
 
 	public Client(Game theGame, Socket sock) {
 		try {
-			currPos = new Vector();
 			setDir(new Vector());
 			this.theGame = theGame;
 			connected = false;
@@ -60,8 +58,8 @@ public class Client {
 	public void recieveLoop() {
 		try {
 			String message = fromClient.readLine();
+			if(message.equals(Protocol.CLIENT_BYE)) connected = false;
 			theGame.parse(this, message);
-			System.out.println(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			connected = false;
@@ -70,21 +68,19 @@ public class Client {
 	}
 
 	public int getCurrPosX() {
-		return currPosX;
+		return (int) unit.getLocation().getxCoord();
 	}
 
 	public void setCurrPosX(int currPosX) {
-		this.currPosX = currPosX;
-		currPos.setxCoord(currPosX);
+		unit.getLocation().setxCoord(currPosX);
 	}
 
 	public int getCurrPosY() {
-		return currPosY;
+		return (int) unit.getLocation().getyCoord();
 	}
 
 	public void setCurrPosY(int currPosY) {
-		this.currPosY = currPosY;
-		currPos.setxCoord(currPosX);
+		unit.getLocation().setyCoord(currPosY);
 	}
 
 	public boolean isMoving() {
@@ -92,7 +88,7 @@ public class Client {
 	}
 
 	public Vector getPos() {
-		return currPos;
+		return unit.getLocation();
 	}
 
 	public void setMoving(boolean isMoving) {
@@ -101,7 +97,7 @@ public class Client {
 
 	public void progress() {
 		if(isMoving){
-			currPos.addScalarVector(dir, CLIENT_SPEED);
+			unit.getLocation().addScalarVector(dir, unit.getSpeed());
 		}
 
 	}
@@ -120,5 +116,17 @@ public class Client {
 
 	public void setDir(Vector dir) {
 		this.dir = dir;
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setUnit(Unit theUnit) {
+		this.unit = theUnit;	
+	}
+
+	public Unit getUnit() {
+		return unit;
 	}
 }

@@ -34,7 +34,10 @@ public class GameServer {
 			System.out.println("sanity");
 			if(client.initHandShake())
 				goodClients++;
-			
+			else
+				return;
+			while(client.isConnected())
+				client.recieveLoop();
 		}
 		
 	}

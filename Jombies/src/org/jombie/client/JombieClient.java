@@ -9,6 +9,11 @@ import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
+import org.jombie.common.Vector;
+import org.jombie.server.Messages.ClientMessage;
+import org.jombie.server.Messages.ClientMessage.Death;
+import org.jombie.server.Messages.ClientMessage.Location;
+import org.jombie.server.Messages.ClientMessage.Shoot;
 import org.jombie.server.Protocol;
 
 public class JombieClient {
@@ -29,9 +34,43 @@ public class JombieClient {
 		toServer.println(userName);
 		System.out.println(fromServer.readLine());
 		System.out.println(fromServer.readLine());
-		System.out.println(fromServer.readLine());
+	}
+	public void sendCoords(Vector pos, Vector direction, boolean isMoving){
+		ClientMessage.Builder builder = ClientMessage.newBuilder();
+		Location.Builder locBuilder = Location.newBuilder();
+		locBuilder.setX((int) pos.getxCoord());
+		locBuilder.setY((int) pos.getyCoord());
+		locBuilder.setDX((int) direction.getxCoord());
+		locBuilder.setDy((int) direction.getyCoord());
+		builder.setChDir(locBuilder);
+		sendMessage(builder.build().toByteString().toStringUtf8());
+	}
+	public void sendDeath(String killer){
+		ClientMessage.Builder builder = ClientMessage.newBuilder();
+		Death.Builder death = Death.newBuilder();
+		death.setKiller(killer);
+		builder.setDeath(death);
+		sendMessage(builder.build().toByteString().toStringUtf8());
+	}
+	public void sendShoot(Vector direciton, Vector location){
+		ClientMessage.Builder builder = ClientMessage.newBuilder();
+		Shoot.Builder shootBuilder = Shoot.newBuilder();
+		shootBuilder.setX((int) location.getxCoord());
+		shootBuilder.setY((int) location.getyCoord());
+		shootBuilder.setDirX((int) direciton.getxCoord());
+		shootBuilder.setDirY((int) location.getyCoord());
+		builder.setShootDie(shootBuilder);
+		sendMessage(builder.build().toByteString().toStringUtf8());
+	}
+	private void sendMessage(String message) {
+		toServer.println(message.length()+":"+message);
+		
 	}
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		JombieClient client = new JombieClient("localhost");
+		Vector derp = new Vector();
+		derp.setxCoord(1);
+		derp.setyCoord(2);
+		client.sendCoords(derp, derp, true);
 	}
 }

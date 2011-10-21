@@ -361,7 +361,6 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				personY - gunY - _gunSize / 2, _gunSize, _gunSize);
 
 		for (Projectile proj : projectiles) {
-			// System.out.println("??");
 			g.setColor(Color.BLUE);
 			Vector pos = proj.getPosition();
 			if (pos.getxCoord() < x + _sizeX && pos.getxCoord() > x

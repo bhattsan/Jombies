@@ -1,18 +1,13 @@
 package org.jombie.server;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.TrayIcon.MessageType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import javax.imageio.ImageIO;
-
-import org.jombie.projectile.Projectile;
-import org.jombies.server.Messages.ClientMessage;
-import org.jombies.server.Messages.ClientMessage.Direction;
-import org.jombies.server.Messages.ClientMessage.MessageType;
+import org.jombie.server.Messages.ClientMessage;
+import org.jombie.server.Messages.ClientMessage.Location;
+import org.jombie.unit.marines.Marine;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -26,10 +21,9 @@ public class Game implements Runnable {
 	private HashMap<String, Client> clientMap;
 	private ArrayList<Client> teamA;
 	private ArrayList<Client> teamB;
-	private ArrayList<Projectile> currProjectiles;
 	private ArrayList<Client> clients;
 	private ConcurrentLinkedQueue<String> msgQueue;
-	private BufferedImage theMap;
+//	private BufferedImage theMap;
 	public Game(String gameID, int mins, String mapName) {
 		this.gameID = gameID;
 		kills = new HashMap<>();
@@ -37,21 +31,21 @@ public class Game implements Runnable {
 		teamA = new ArrayList<>();
 		teamB = new ArrayList<>();
 		clientMap = new HashMap<>();
-		currProjectiles = new ArrayList<>();
 		clients = new ArrayList<>();
 		msgQueue = new ConcurrentLinkedQueue<>();
 		gameSecs = mins * 60;
 		currSec = 0;
-		try {
-			theMap = ImageIO.read(new File(mapName));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try { :'(
+//			theMap = ImageIO.read(new File(mapName));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	public int addClient(Client toAdd){
 		clients.add(toAdd);
 		clientMap.put(toAdd.getUserName(), toAdd);
+		toAdd.setUnit(new Marine());
 		toAdd.sendMessage(gameID);
 		if(teamA.size() > teamB.size()){
 			teamB.add(toAdd);
@@ -102,6 +96,7 @@ public class Game implements Runnable {
 	private void parseMessages() {
 		while(!msgQueue.isEmpty()){
 			String parse = msgQueue.remove();
+			System.out.println("GOT THIS!!"+ parse);
 			String user = parse.substring(0, parse.indexOf(':'));
 			String message = parse.substring(parse.indexOf(':')+1);
 			Client theClient = clientMap.get(user);
@@ -115,20 +110,19 @@ public class Game implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(theMessage.getType() == MessageType.CHANGE_DIR){
-				if(!theMessage.hasChDir()) continue;
-				theClient.setMoving(theMessage.getChDir().getIsMoving());
-				if(theClient.isMoving() && theMessage.getChDir().hasDir()){
-					Direction dir = theMessage.getChDir().getDir(); 
-					theClient.setCurrPosX(dir.getX());
-					theClient.setCurrPosY(dir.getY());
-					theClient.getDir().setxCoord(dir.getDX());
-					theClient.getDir().setyCoord(dir.getDy());
-				}
-			} else if (theMessage.getType() == MessageType.SHOOT){
+			if(theMessage.hasChDir()){
+				System.out.println("YEP");
+				Location dir = theMessage.getChDir(); 
+				theClient.setCurrPosX(dir.getX());
+				theClient.setCurrPosY(dir.getY());
+				theClient.getDir().setxCoord(dir.getDX());
+				theClient.getDir().setyCoord(dir.getDy());
+				
+				System.out.println(user+","+theClient.getCurrPosX()+ " "+ theClient.getCurrPosY());
+			} else if (theMessage.hasShootDie()){
 				//shoot shit
 				System.out.println("SHOT FIRED!");
-			} else if (theMessage.getType() == MessageType.RELOADING){
+			} else if (theMessage.hasDeath()){
 				System.out.println("RELOADING!");
 			}
 		}
@@ -143,17 +137,16 @@ public class Game implements Runnable {
 	
 	private void simulateGame()
 	{
-		for(Client currClient : clients){
-			currClient.progress();
-		}
-		for(Projectile proj : currProjectiles){
-			proj.updatePosition();
-			for(Client currClient : clients){
-				if(proj.getPosition().distanceBetween(currClient.getPos())<THRESHOLD){
-					//insert collision code here
-					System.out.println("collision");
-				}
-			}
-		}
+//		for(Projectile proj : currProjectiles){
+//			proj.updatePosition();
+//			if()
+//			for(Client currClient : clients){
+//				if(proj.hasCollided(currClient.getUnit())){
+//					//insert collision code here
+//					System.out.println("collision");
+//				}
+//			}
+//		}
+		//blind faith in client
 	}
 }
