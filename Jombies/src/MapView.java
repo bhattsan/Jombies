@@ -15,7 +15,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -25,6 +27,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import org.jombie.common.Vector;
+import org.jombie.projectile.PistolBullet;
+import org.jombie.projectile.Projectile;
+import org.jombie.unit.Unit;
 
 public class MapView extends JFrame {
 	protected static final int NUM_BUFFERS = 100;
@@ -65,6 +70,9 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private Color map = Color.WHITE;
 	private Vector mousePoint = new Vector();
 
+	private Unit myUnit;
+	private List<Projectile> projectiles;
+
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
 
@@ -92,21 +100,33 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		try {
 			ii = new ImageIcon(ImageIO.read(new File(craft1)));
 			actual = ImageIO.read(new File(craft1));
-			expl = ImageIO.read(new File(explosion));
+			expl = (BufferedImage) new ImageIcon(ImageIO.read(new File(
+					explosion))).getImage();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		plane = (BufferedImage) ii.getImage();
 
+		projectiles = new ArrayList<Projectile>();
+
 		setDoubleBuffered(true);
 		setFocusable(true);
-		Timer s = new Timer(10, new ActionListener() {
+		Timer s = new Timer(5, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Vector me = new Vector();
 				me.setxCoord(personX);
 				me.setyCoord(personY);
+				ArrayList<Projectile> toKill = new ArrayList<Projectile>();
+				for (Projectile proj : projectiles) {
+					proj.updatePosition();
+					if (!isValidSpace(proj.getPosition().getxCoord(), proj
+							.getPosition().getyCoord(), proj.getRadius())) {
+						toKill.add(proj);
+					}
+				}
+				projectiles.removeAll(toKill);
 				weaponAngle = me.findAngle(mousePoint);
 				// System.out.println(weaponAngle);
 				repaint();
@@ -117,6 +137,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		addKeyListener(this);
 		addFocusListener(this);
 		addMouseMotionListener(this);
+		addMouseListener(this);
 	}
 
 	@Override
@@ -190,6 +211,9 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	}
 
 	public boolean isValidSpace(int x, int y, int radius) {
+		if (x <= 0 || x > actual.getWidth() || y <= 0 || y > actual.getHeight()) {
+			return false;
+		}
 		for (int i = x; i < x + radius; i++) {
 			if (i < actual.getWidth()) {
 				for (int j = y; j < y + radius; j++) {
@@ -268,11 +292,21 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		g.setColor(Color.GREEN);
 		g.fillOval(personX - _meRadius / 2, personY - _meRadius / 2, _meRadius,
 				_meRadius);
-		int x = (int) (_gunRadius * Math.cos(weaponAngle));
-		int y = (int) (_gunRadius * Math.sin(weaponAngle));
+		int gunX = (int) (_gunRadius * Math.cos(weaponAngle));
+		int gunY = (int) (_gunRadius * Math.sin(weaponAngle));
 		g.setColor(Color.RED);
-		g.fillOval(personX + x - _gunSize / 2, personY - y - _gunSize / 2,
+		g.fillOval(personX + gunX - _gunSize / 2, personY - gunY - _gunSize / 2,
 				_gunSize, _gunSize);
+
+		for (Projectile proj : projectiles) {
+//			System.out.println("??");
+			g.setColor(Color.BLUE);
+			Vector pos = proj.getPosition();
+			if(pos.getxCoord()<x+_sizeX&&pos.getxCoord()>x && pos.getyCoord()<y+_sizeY && pos.getyCoord()>y){
+				g.fillOval(pos.getxCoord()-x, pos.getyCoord()-y, proj.getRadius(), proj.getRadius());
+			}
+//			g.fillOval(pos, y, width, height)
+		}
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -307,8 +341,21 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
+//		explode = true;
+		System.err.println("Y no explode?");
+		PistolBullet s = new PistolBullet();
+		Vector pos = new Vector();
+		pos.setxCoord(x+personX);
+		pos.setyCoord(y+personY);
+		Vector direction = new Vector();
+		direction.setxCoord((int)(100*Math.cos(weaponAngle)));
+		direction.setyCoord((int)(100*Math.sin(weaponAngle)));
+		s.setPosition(pos);
+		s.setDirection(direction);
+		System.out.println(direction);
+		System.out.println(direction.findAngle());
+		projectiles.add(s);
 	}
 
 	@Override

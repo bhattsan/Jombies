@@ -1,5 +1,6 @@
 package org.jombie.weapon;
 
+
 public class RangedWeapon extends Weapon {
 	int range;
 	int capacity;

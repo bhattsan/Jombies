@@ -51,4 +51,13 @@ public class Vector {
 		}
 		return angle;
 	}
+	
+	public void addScalarVector(Vector direction, int speed){
+		setxCoord((int)(xCoord+speed*Math.cos(direction.findAngle())));
+		setyCoord((int)(yCoord-speed*Math.sin(direction.findAngle())));
+	}
+	@Override
+	public String toString() {
+		return xCoord+","+yCoord;
+	}
 }
