@@ -24,6 +24,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import org.jombie.common.Vector;
+
 public class MapView extends JFrame {
 	protected static final int NUM_BUFFERS = 100;
 
@@ -61,6 +63,7 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	private static final int SPEED = 10;
 	private static int personX = _sizeX/2, personY = _sizeY/2;
 	private Color map = Color.WHITE;
+	private Vector mousePoint = new Vector();
 
 	int x = 0, y = 0;
 	private String craft1 = "TestMap.png";
@@ -95,10 +98,15 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 
 		setDoubleBuffered(true);
 		setFocusable(true);
-		Timer s = new Timer(1, new ActionListener() {
+		Timer s = new Timer(10, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				Vector me = new Vector();
+				me.setxCoord(personX);
+				me.setyCoord(personY);
+				weaponAngle = me.findAngle(mousePoint);
+//				System.out.println(weaponAngle);
 				repaint();
 			}
 		});
@@ -200,10 +208,10 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 		if((y==0 && personY< _sizeY/2) || 
 				(y+getHeight() == plane.getHeight() && 
 				y+ personY + _meRadius/2 < plane.getHeight())){
-			System.out.println("sane1 "+personY+","+y+","+plane.getHeight());
+//			System.out.println("sane1 "+personY+","+y+","+plane.getHeight());
 			personY++;
 		} else if (y+getHeight()<plane.getHeight()){
-			System.out.println("sane2 "+y);
+//			System.out.println("sane2 "+y);
 			y++;
 		}
 	}
@@ -251,7 +259,8 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 	public void mouseMoved(MouseEvent mouseHitPoint) {
 		int xHit = mouseHitPoint.getX();
 		int yHit = mouseHitPoint.getY();
-		System.out.printf("(%d, %d)\t", xHit, yHit);
+//		System.out.printf("(%d, %d)\t", xHit, yHit);
+/*		
 		xHit = xHit - personX;
 		yHit = personY - yHit;
 		if (xHit == 0) {
@@ -262,7 +271,9 @@ class PanelTest extends JPanel implements KeyListener, FocusListener,
 				weaponAngle += Math.PI;
 			}
 		}
-		System.out.println(weaponAngle);
+		System.out.println(weaponAngle);*/
+		mousePoint.setxCoord(xHit);
+		mousePoint.setyCoord(yHit);
 	}
 
 	@Override
